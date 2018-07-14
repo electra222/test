@@ -1,0 +1,29 @@
+﻿@model AutoSeller.ViewModel.AutomobileFormViewModel
+@{
+    ViewBag.Title = "AutomobileForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Automobile</h2>
+@using (Html.BeginForm("Create", "Automobiles"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Automobile.Name)
+        @Html.TextBoxFor(m => m.Automobile.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Automobile.ReleaseDate)
+        @Html.TextBoxFor(m => m.Automobile.ReleaseDate, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Automobile.CountryId)
+        @Html.DropDownListFor(m => m.Automobile.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Select Country", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Automobile.NuberInStock)
+        @Html.TextBoxFor(m => m.Automobile.NuberInStock, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.Automobile.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+

@@ -1,0 +1,35 @@
+﻿@model IEnumerable <AutoSeller.Models.Automobile>
+
+@{
+    ViewBag.Title = "Automobiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Automobiles</h2>
+
+@if (!Model.Any())
+{
+    <p>There aren't any uploaded automobiles yet.</p>
+}
+else
+{
+    <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
+    <p></p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Automobiles</th>
+            <th>Countries</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var automobile in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(automobile.Name, "Details", "Automobiles", new { id = automobile.Id }, null)</td>
+                <td>@automobile.Country.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}

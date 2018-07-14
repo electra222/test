@@ -1,0 +1,32 @@
+﻿@model AutoSeller.ViewModel.RandomAutomobileViewModel
+
+@*
+    This is a comment 
+    We dinamically render different classes - Automobile, Customer
+*@
+
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+    var className = Model.Customers.Count > 0 ? "popular" : null;
+}
+
+<h2 class="@className">@Model.Automobile.Name</h2>
+
+@if (Model.Customers.Count == 0)
+{
+    <text>No one has booked this car</text>
+}
+else
+{ 
+<ul>
+    @foreach (var customer in Model.Customers)
+    {
+        <li>@customer.Name</li>
+    }
+</ul>
+}
+

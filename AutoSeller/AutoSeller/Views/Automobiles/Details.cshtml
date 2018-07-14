@@ -1,0 +1,16 @@
+﻿@model AutoSeller.Models.Automobile
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+<ul>
+    <li>Country: @Model.Country.Name</li> 
+    <li>Release Date: @Model.ReleaseDate.ToLongDateString()</li>
+    <li>Date Imported: @Model.DateImported.ToLongDateString()</li>
+    <li>Number in Stock: @Model.NuberInStock</li>
+</ul>
+ 
