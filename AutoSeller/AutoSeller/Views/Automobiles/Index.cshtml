@@ -13,8 +13,10 @@
 }
 else
 {
-    <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
-    <p></p>
+   // <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
+    <p>
+        @Html.ActionLink("New Automobile", "New", "Automobiles", null, new { @class = "btn btn-primary" })
+    </p>
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -26,7 +28,7 @@ else
         @foreach (var automobile in Model)
         {
             <tr>
-                <td>@Html.ActionLink(automobile.Name, "Details", "Automobiles", new { id = automobile.Id }, null)</td>
+                <td>@Html.ActionLink(automobile.Name, "Edit", "Automobiles", new { id = automobile.Id }, null)</td>
                 <td>@automobile.Country.Name</td>
             </tr>
         }

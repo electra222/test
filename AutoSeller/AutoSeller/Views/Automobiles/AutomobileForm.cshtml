@@ -4,8 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Automobile</h2>
-@using (Html.BeginForm("Create", "Automobiles"))
+@if (Model.Automobile != null && Model.Automobile.Id != 0)
+{
+    <h2>Edit Automobile</h2>
+}
+else
+{
+    <h2>New Automobile</h2>
+}
+
+@using (Html.BeginForm("Save", "Automobiles"))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Automobile.Name)
@@ -13,7 +21,11 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Automobile.ReleaseDate)
-        @Html.TextBoxFor(m => m.Automobile.ReleaseDate, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Automobile.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+    </div>
+        <div class="form-group">
+        @Html.LabelFor(m => m.Automobile.DateImported)
+        @Html.TextBoxFor(m => m.Automobile.DateImported, "{0:d MMM yyyy}", new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Automobile.CountryId)
@@ -23,6 +35,8 @@
         @Html.LabelFor(m => m.Automobile.NuberInStock)
         @Html.TextBoxFor(m => m.Automobile.NuberInStock, new { @class = "form-control" })
     </div>
+
+    //here we will declare all hidden fields
     @Html.HiddenFor(m => m.Automobile.Id)
     <button type="submit" class="btn btn-primary">Save</button>
 }

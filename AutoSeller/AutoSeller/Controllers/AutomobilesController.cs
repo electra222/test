@@ -35,10 +35,20 @@ namespace AutoSeller.Controllers
             return View("AutomobileForm", viewModel);
         }
 
+        //If the ID of the car is empty => add it to the db, else update the existing record
         [HttpPost]
-        public ActionResult Create(Automobile automobile)
+        public ActionResult Save(Automobile automobile)
         {
+            if(automobile.Id ==0)
             _context.Automobiles.Add(automobile);
+            else
+            {
+                var automobileInDb = _context.Automobiles.Single(c => c.Id == automobile.Id);
+                automobileInDb.Name = automobile.Name;
+                automobileInDb.ReleaseDate = automobile.ReleaseDate;
+                automobileInDb.CountryId = automobile.CountryId;
+                automobileInDb.NuberInStock = automobile.NuberInStock;     
+            }
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Automobiles");
@@ -74,7 +84,18 @@ namespace AutoSeller.Controllers
 
         public ActionResult Edit(int id)
         {
-            return Content("id=" + id);
+            var automobile = _context.Automobiles.SingleOrDefault(c => c.Id == id);
+
+            if (automobile == null)
+                return HttpNotFound();
+
+            var viewModel = new AutomobileFormViewModel
+            {
+                Automobile = automobile,
+                Countries = _context.Countries.ToList()
+            };
+
+            return View("AutomobileForm", viewModel);
 
         }
 
