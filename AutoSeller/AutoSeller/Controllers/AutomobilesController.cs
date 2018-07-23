@@ -27,7 +27,7 @@ namespace AutoSeller.Controllers
         public ActionResult New()
         {
             var countries = _context.Countries.ToList();
-            var viewModel = new AutomobileFormViewModel
+            var viewModel = new AutomobileFormViewModel()
             {
                 Countries = countries
             };
@@ -37,10 +37,23 @@ namespace AutoSeller.Controllers
 
         //If the ID of the car is empty => add it to the db, else update the existing record
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Automobile automobile)
         {
-            if(automobile.Id ==0)
-            _context.Automobiles.Add(automobile);
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new AutomobileFormViewModel(automobile)
+                {
+                    Countries = _context.Countries.ToList()
+                };
+                return View("AutomobileForm", viewModel);
+            }
+
+            if (automobile.Id == 0)
+            {
+                automobile.DateImported = DateTime.Now;
+                _context.Automobiles.Add(automobile);
+            }
             else
             {
                 var automobileInDb = _context.Automobiles.Single(c => c.Id == automobile.Id);
@@ -89,9 +102,8 @@ namespace AutoSeller.Controllers
             if (automobile == null)
                 return HttpNotFound();
 
-            var viewModel = new AutomobileFormViewModel
+            var viewModel = new AutomobileFormViewModel(automobile)
             {
-                Automobile = automobile,
                 Countries = _context.Countries.ToList()
             };
 

@@ -198,3 +198,4 @@ D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.csproj.CoreCompileInput
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.csproj.CopyComplete
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.dll
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.pdb
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.ValidationChanges.resources

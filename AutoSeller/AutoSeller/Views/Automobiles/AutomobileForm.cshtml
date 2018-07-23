@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.Automobile != null && Model.Automobile.Id != 0)
+@if (Model.Id != 0)
 {
     <h2>Edit Automobile</h2>
 }
@@ -15,29 +15,37 @@ else
 
 @using (Html.BeginForm("Save", "Automobiles"))
 {
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+
     <div class="form-group">
-        @Html.LabelFor(m => m.Automobile.Name)
-        @Html.TextBoxFor(m => m.Automobile.Name, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Automobile.ReleaseDate)
-        @Html.TextBoxFor(m => m.Automobile.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
-    </div>
-        <div class="form-group">
-        @Html.LabelFor(m => m.Automobile.DateImported)
-        @Html.TextBoxFor(m => m.Automobile.DateImported, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.LabelFor(m => m.ReleaseDate)
+        @Html.TextBoxFor(m => m.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ReleaseDate)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Automobile.CountryId)
-        @Html.DropDownListFor(m => m.Automobile.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Select Country", new { @class = "form-control" })
+        @Html.LabelFor(m => m.CountryId)
+        @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Select Country", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CountryId)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Automobile.NuberInStock)
-        @Html.TextBoxFor(m => m.Automobile.NuberInStock, new { @class = "form-control" })
+        @Html.LabelFor(m => m.NuberInStock)
+        @Html.TextBoxFor(m => m.NuberInStock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.NuberInStock)
+
     </div>
 
     //here we will declare all hidden fields
-    @Html.HiddenFor(m => m.Automobile.Id)
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

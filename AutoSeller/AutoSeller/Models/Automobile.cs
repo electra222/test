@@ -11,7 +11,10 @@ namespace AutoSeller.Models
 
         [Required]
         public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
         public Country Country { get; set; }
 
         [Display (Name = "Country")]
@@ -24,6 +27,7 @@ namespace AutoSeller.Models
         public DateTime DateImported { get; set;}
 
         [Display (Name = "Number in Stock")]
+        [Range(1,20)]
         public byte NuberInStock { get; set; }
 
     }

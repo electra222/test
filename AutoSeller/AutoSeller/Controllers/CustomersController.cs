@@ -29,6 +29,8 @@ namespace AutoSeller.Controllers
             var membershipTypes = _context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
+                //the customer properties will initialise their default values ex: 'int' properties will get '0'
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
             return View("CustomerForm", viewModel);
@@ -36,13 +38,25 @@ namespace AutoSeller.Controllers
 
         // Adding new or editing old customer
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
+            //verify if the required fields are correctly filled, otherwise turns back for editing before submitting
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+
+                return View("CustomerForm",viewModel);
+            }
+
             //in the form we don't give an Id, thats why we set it as hidden before the submit button (see CustomerForm)
             if(customer.Id == 0)
             {
                 _context.Customers.Add(customer);
-
             }
             else
             {
