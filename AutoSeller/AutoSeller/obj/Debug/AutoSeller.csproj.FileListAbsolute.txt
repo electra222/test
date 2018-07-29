@@ -199,3 +199,17 @@ D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.csproj.CopyComplete
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.dll
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.pdb
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.ValidationChanges.resources
+D:\repos\test\AutoSeller\AutoSeller\bin\System.Net.Http.Formatting.dll
+D:\repos\test\AutoSeller\AutoSeller\bin\System.Web.Http.dll
+D:\repos\test\AutoSeller\AutoSeller\bin\System.Web.Http.WebHost.dll
+D:\repos\test\AutoSeller\AutoSeller\bin\System.Net.Http.Formatting.xml
+D:\repos\test\AutoSeller\AutoSeller\bin\System.Web.Http.xml
+D:\repos\test\AutoSeller\AutoSeller\bin\System.Web.Http.WebHost.xml
+D:\repos\test\AutoSeller\AutoSeller\bin\AutoMapper.dll
+D:\repos\test\AutoSeller\AutoSeller\bin\AutoMapper.xml
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AddAllCountriesList.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.CreateMake.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AddMakeList.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AddMakeList2.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.CreateModel.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AddModelList.resources

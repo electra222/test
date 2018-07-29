@@ -24,6 +24,10 @@ namespace AutoSeller.Models
         public DbSet<Automobile> Automobiles { get; set; }
         public DbSet<MembershipType> MembershipTypes { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<AutomobileMake> AutomobileMakes { get; set; }
+        public DbSet<AutomobileModel> AutomobileModels { get; set; }
+
+
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

@@ -29,7 +29,7 @@ else
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.CountryId)
-        @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.Countries, "Id", "Name"), "Select Country", new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.Countries.OrderBy(m => m.Name), "Id", "Name"), "Select Country", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.CountryId)
     </div>
     <div class="form-group">
