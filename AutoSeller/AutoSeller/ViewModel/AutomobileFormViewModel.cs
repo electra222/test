@@ -11,6 +11,16 @@ namespace AutoSeller.ViewModel
     {
         public IEnumerable<Country> Countries { get; set; }
 
+        public IEnumerable<AutomobileMake> AutomobileMakes { get; set; }
+
+        public IEnumerable<AutomobileModel> AutomobileModels { get; set; }
+
+        public List<Detail> Details { get; set; }
+
+        //        public IEnumerable<AutomobileDetail> AutomobileDetails { get; set; }
+        public List<AutomobileDetail> AutomobileDetails { get; set; }
+
+
         public int? Id { get; set; }
 
         //the string is nullable by default, so no need of ?
@@ -30,6 +40,25 @@ namespace AutoSeller.ViewModel
         [Required]
         public byte? NuberInStock { get; set; }
 
+        [Display(Name = "Make")]
+        [Required]
+        public int? AutomobileMakeId { get; set; }
+
+        [Display(Name = "Model")]
+        [Required]
+        public int? AutomobileModelId { get; set; }
+
+        public string Engine { get; set; }
+
+        public string Color { get; set; }
+
+        [Range(1, 5)]
+        public byte? Doors { get; set; }
+
+        public string Transmission { get; set; }
+
+        public float? Miles { get; set; }
+
         public AutomobileFormViewModel()
         {
             Id = 0;
@@ -42,6 +71,13 @@ namespace AutoSeller.ViewModel
             CountryId = automobile.CountryId;
             ReleaseDate = automobile.ReleaseDate;
             NuberInStock = automobile.NuberInStock;
+            AutomobileMakeId = automobile.AutomobileMakeId;
+            AutomobileModelId = automobile.AutomobileModelId;
+            Engine = automobile.Engine;
+            Color = automobile.Color;
+            Doors = automobile.Doors;
+            Transmission = automobile.Transmission;
+            Miles = automobile.Miles;
 
         }
     }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable <AutoSeller.Models.Automobile>
+﻿@model IEnumerable<AutoSeller.Models.Automobile>
 
 @{
     ViewBag.Title = "Automobiles";
@@ -7,31 +7,37 @@
 
 <h2>Automobiles</h2>
 
+<p>
+    @Html.ActionLink("New Automobile", "New", "Automobiles", null, new { @class = "btn btn-primary" })
+</p>
+
 @if (!Model.Any())
 {
     <p>There aren't any uploaded automobiles yet.</p>
 }
 else
 {
-   // <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
-    <p>
-        @Html.ActionLink("New Automobile", "New", "Automobiles", null, new { @class = "btn btn-primary" })
-    </p>
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Automobiles</th>
-            <th>Countries</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var automobile in Model)
-        {
+    // <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Automobiles</th>
+                <th>Countries</th>
+                <th>Makes</th>
+                <th>Models</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var automobile in Model)
+            {
             <tr>
                 <td>@Html.ActionLink(automobile.Name, "Edit", "Automobiles", new { id = automobile.Id }, null)</td>
                 <td>@automobile.Country.Name</td>
+                <td>@automobile.AutomobileMake.Name</td>
+                <td>@automobile.AutomobileModel.Name</td>
+
             </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
 }

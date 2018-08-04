@@ -212,8 +212,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CustomersController.cs" />
+    <Compile Include="Controllers\AutomobileDetailsController.cs" />
     <Compile Include="Controllers\AutomobilesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
@@ -312,13 +314,47 @@
     <Compile Include="Migrations\201807282229466_AddModelList.Designer.cs">
       <DependentUpon>201807282229466_AddModelList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807290842524_UpdateAutomobileNewParams.cs" />
+    <Compile Include="Migrations\201807290842524_UpdateAutomobileNewParams.Designer.cs">
+      <DependentUpon>201807290842524_UpdateAutomobileNewParams.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807290905290_TruncateAutoobilesTable.cs" />
+    <Compile Include="Migrations\201807290905290_TruncateAutoobilesTable.Designer.cs">
+      <DependentUpon>201807290905290_TruncateAutoobilesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807290909550_UpdateAutomobileNewParams2.cs" />
+    <Compile Include="Migrations\201807290909550_UpdateAutomobileNewParams2.Designer.cs">
+      <DependentUpon>201807290909550_UpdateAutomobileNewParams2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807291708169_CreateDetailTable.cs" />
+    <Compile Include="Migrations\201807291708169_CreateDetailTable.Designer.cs">
+      <DependentUpon>201807291708169_CreateDetailTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807291720517_CreateAutomobileDetailTable.cs" />
+    <Compile Include="Migrations\201807291720517_CreateAutomobileDetailTable.Designer.cs">
+      <DependentUpon>201807291720517_CreateAutomobileDetailTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807300943508_AddDetailValueInAutomobileDetail.cs" />
+    <Compile Include="Migrations\201807300943508_AddDetailValueInAutomobileDetail.Designer.cs">
+      <DependentUpon>201807300943508_AddDetailValueInAutomobileDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807301922152_RemoveActiveInAutomobileDetail.cs" />
+    <Compile Include="Migrations\201807301922152_RemoveActiveInAutomobileDetail.Designer.cs">
+      <DependentUpon>201807301922152_RemoveActiveInAutomobileDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807310034238_MakeAllNullabeInAutomobileDetail.cs" />
+    <Compile Include="Migrations\201807310034238_MakeAllNullabeInAutomobileDetail.Designer.cs">
+      <DependentUpon>201807310034238_MakeAllNullabeInAutomobileDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Automobile.cs" />
+    <Compile Include="Models\AutomobileDetail.cs" />
     <Compile Include="Models\AutomobileMake.cs" />
     <Compile Include="Models\AutomobileModel.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Detail.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -398,6 +434,9 @@
     <Content Include="Views\Automobiles\Details.cshtml" />
     <Content Include="Views\Customers\CustomerForm.cshtml" />
     <Content Include="Views\Automobiles\AutomobileForm.cshtml" />
+    <Content Include="Views\AutomobileDetails\Index.cshtml" />
+    <Content Include="Views\Details\Index.cshtml" />
+    <Content Include="Views\Details\DetailForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -479,6 +518,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807282229466_AddModelList.resx">
       <DependentUpon>201807282229466_AddModelList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807290842524_UpdateAutomobileNewParams.resx">
+      <DependentUpon>201807290842524_UpdateAutomobileNewParams.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807290905290_TruncateAutoobilesTable.resx">
+      <DependentUpon>201807290905290_TruncateAutoobilesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807290909550_UpdateAutomobileNewParams2.resx">
+      <DependentUpon>201807290909550_UpdateAutomobileNewParams2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807291708169_CreateDetailTable.resx">
+      <DependentUpon>201807291708169_CreateDetailTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807291720517_CreateAutomobileDetailTable.resx">
+      <DependentUpon>201807291720517_CreateAutomobileDetailTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807300943508_AddDetailValueInAutomobileDetail.resx">
+      <DependentUpon>201807300943508_AddDetailValueInAutomobileDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807301922152_RemoveActiveInAutomobileDetail.resx">
+      <DependentUpon>201807301922152_RemoveActiveInAutomobileDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807310034238_MakeAllNullabeInAutomobileDetail.resx">
+      <DependentUpon>201807310034238_MakeAllNullabeInAutomobileDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

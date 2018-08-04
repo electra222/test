@@ -26,7 +26,8 @@ namespace AutoSeller.Models
         public DbSet<Country> Countries { get; set; }
         public DbSet<AutomobileMake> AutomobileMakes { get; set; }
         public DbSet<AutomobileModel> AutomobileModels { get; set; }
-
+        public DbSet<Detail> Details { get; set; }
+        public DbSet<AutomobileDetail> AutomobileDetails { get; set; }
 
 
         public ApplicationDbContext()

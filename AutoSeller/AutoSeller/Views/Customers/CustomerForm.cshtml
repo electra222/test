@@ -41,7 +41,11 @@
 
     @Html.HiddenFor(m => m.Customer.Id)
     @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Save</button>
+
+    <p>
+        <button type="submit" class="btn btn-primary">Save</button>
+        @Html.ActionLink("Cancel", "Index", "Customers", null, new { @class = "btn btn-primary" })
+    </p>
 
 }
 

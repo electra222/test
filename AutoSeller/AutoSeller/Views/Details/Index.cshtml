@@ -1,0 +1,36 @@
+﻿@model IEnumerable<AutoSeller.Models.Detail>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<p>
+    @Html.ActionLink("New Detail", "New", "Details", null, new { @class = "btn btn-primary" })
+</p>
+
+@if (!Model.Any())
+{
+    <p>There aren't any added details yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detail in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(detail.Name, "Edit", "Details", new { id = detail.Id }, null)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

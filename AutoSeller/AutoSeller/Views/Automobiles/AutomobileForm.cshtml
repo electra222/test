@@ -23,6 +23,16 @@ else
         @Html.ValidationMessageFor(m => m.Name)
     </div>
     <div class="form-group">
+        @Html.LabelFor(m => m.AutomobileMakeId)
+        @Html.DropDownListFor(m => m.AutomobileMakeId, new SelectList(Model.AutomobileMakes.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.AutomobileMakeId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AutomobileModelId)
+        @Html.DropDownListFor(m => m.AutomobileModelId, new SelectList(Model.AutomobileModels.OrderBy(m => m.Name), "Id", "Name"), "Select Model", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.AutomobileModelId)
+    </div>
+    <div class="form-group">
         @Html.LabelFor(m => m.ReleaseDate)
         @Html.TextBoxFor(m => m.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.ReleaseDate)
@@ -33,16 +43,65 @@ else
         @Html.ValidationMessageFor(m => m.CountryId)
     </div>
     <div class="form-group">
+        @Html.LabelFor(m => m.Engine)
+        @Html.TextBoxFor(m => m.Engine, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Engine)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Color)
+        @Html.TextBoxFor(m => m.Color, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Color)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Doors)
+        @Html.TextBoxFor(m => m.Doors, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Doors)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Transmission)
+        @Html.TextBoxFor(m => m.Transmission, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Transmission)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Miles)
+        @Html.TextBoxFor(m => m.Miles, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Miles)
+    </div>
+    <div class="form-group">
         @Html.LabelFor(m => m.NuberInStock)
         @Html.TextBoxFor(m => m.NuberInStock, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.NuberInStock)
-
     </div>
+
+    if (Model.Details.Any())
+    {
+        for(int i=0; i < Model.Details.Count(); i++)
+        {
+            <div class="form-group">
+                @Html.ValueFor(m => Model.Details[i].Name)
+                @Html.TextBoxFor(Model => Model.AutomobileDetails[i].DetailValue, new { @class = "form-control" })
+            </div>
+        }
+    }
+        
 
     //here we will declare all hidden fields
     @Html.HiddenFor(m => m.Id)
+
+    for (int i = 0; i < Model.Details.Count(); i++)
+    {
+        @Html.HiddenFor(m => m.AutomobileDetails[i].Id)
+        @Html.HiddenFor(m => m.AutomobileDetails[i].DetailId)
+        @Html.HiddenFor(m => m.AutomobileDetails[i].AutomobileId)
+    }
+
+    
     @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Save</button>
+    <p>
+        <button type="submit" class="btn btn-primary">Save</button>
+        @Html.ActionLink("Cancel", "Index", "Customers", null, new { @class = "btn btn-primary" })
+    </p>
+
 }
 
 @section scripts

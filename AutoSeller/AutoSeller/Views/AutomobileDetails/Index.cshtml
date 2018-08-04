@@ -1,0 +1,36 @@
+﻿@model IEnumerable<AutoSeller.Models.AutomobileDetail>
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+@if (!Model.Any())
+{
+    <p>There aren't any details yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <!--     <th>Active</th>  -->
+            </tr>
+    </thead>
+    <tbody>
+        @foreach (var automobileDetail in Model)
+        {
+            <tr>
+                <td>@automobileDetail.Detail.Name</td>
+              <!--  <td>Html.CheckBoxFor(m => automobileDetail.Active)</td> -->
+            </tr>
+
+            }
+        </tbody>
+    </table>
+
+}

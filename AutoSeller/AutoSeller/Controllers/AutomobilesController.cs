@@ -27,10 +27,24 @@ namespace AutoSeller.Controllers
         public ActionResult New()
         {
             var countries = _context.Countries.ToList();
+            var autoMakes = _context.AutomobileMakes.ToList();
+            var autoModels = _context.AutomobileModels.ToList();
+            var details = _context.Details.ToList();
+
             var viewModel = new AutomobileFormViewModel()
             {
-                Countries = countries
+                Countries = countries,
+                AutomobileMakes = autoMakes,
+                AutomobileModels = autoModels,
+                Details = details,
+                AutomobileDetails = new List<AutomobileDetail>()
             };
+
+            foreach (var detail in details)
+            {
+                var automobileDetail = new AutomobileDetail();
+                viewModel.AutomobileDetails.Add(automobileDetail);
+            }               
 
             return View("AutomobileForm", viewModel);
         }
@@ -38,14 +52,19 @@ namespace AutoSeller.Controllers
         //If the ID of the car is empty => add it to the db, else update the existing record
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Automobile automobile)
+        public ActionResult Save(Automobile automobile, List<AutomobileDetail> automobileDetails)
         {
             if (!ModelState.IsValid)
             {
                 var viewModel = new AutomobileFormViewModel(automobile)
                 {
-                    Countries = _context.Countries.ToList()
+                    Countries = _context.Countries.ToList(),
+                    AutomobileMakes = _context.AutomobileMakes.ToList(),
+                    AutomobileModels = _context.AutomobileModels.ToList(),
+                    Details = _context.Details.ToList(),
+                    AutomobileDetails = automobileDetails
                 };
+
                 return View("AutomobileForm", viewModel);
             }
 
@@ -53,6 +72,22 @@ namespace AutoSeller.Controllers
             {
                 automobile.DateImported = DateTime.Now;
                 _context.Automobiles.Add(automobile);
+                _context.SaveChanges();
+
+                List<Detail> details = _context.Details.ToList();
+                List<Automobile> automobiles = _context.Automobiles.ToList();
+
+
+                if (details.Any())
+                {
+                    for(int i = 0; i < details.Count(); i++)
+                    {
+                        automobileDetails[i].DetailId = details[i].Id;
+                        automobileDetails[i].AutomobileId = automobiles.Last().Id;
+                        _context.AutomobileDetails.Add(automobileDetails[i]);
+                    }
+
+                }
             }
             else
             {
@@ -60,7 +95,55 @@ namespace AutoSeller.Controllers
                 automobileInDb.Name = automobile.Name;
                 automobileInDb.ReleaseDate = automobile.ReleaseDate;
                 automobileInDb.CountryId = automobile.CountryId;
-                automobileInDb.NuberInStock = automobile.NuberInStock;     
+                automobileInDb.NuberInStock = automobile.NuberInStock;
+                automobileInDb.AutomobileMakeId = automobile.AutomobileMakeId;
+                automobileInDb.AutomobileModelId = automobile.AutomobileModelId;
+                automobileInDb.Engine = automobile.Engine;
+                automobileInDb.Color = automobile.Color;
+                automobileInDb.Transmission = automobile.Transmission;
+                automobileInDb.Miles = automobile.Miles;
+
+                if (automobileDetails.Any())
+                {                
+                    //we take all automobileDetails correcponding to the current automobile, then set their Vaues  
+                    //to the new Values coming from the view in the list automobileDetails
+                    IEnumerable<AutomobileDetail> automobileDetailsInDb = _context.AutomobileDetails.ToList().Where(c => c.AutomobileId == automobile.Id);
+                    List<AutomobileDetail> automobileDetailsOld = automobileDetails.FindAll(c => c.AutomobileId != null);
+                    int n = 0;
+
+                    foreach (var automobileDetail in automobileDetailsInDb)
+                    {
+                        automobileDetail.DetailValue = automobileDetailsOld[n].DetailValue;
+                        n++;
+                    }
+
+                    if(automobileDetails.Any(c => c.AutomobileId == null))
+                    {                    
+                        //there are new automobileDetails wich should be created for first time
+                        //we set their AutomobileId to the Id of the returned from the view automobile
+                        List<AutomobileDetail> automobileDetailsNew = automobileDetails.FindAll(c => c.AutomobileId == null);
+                        List<Detail> detailsInDb = _context.Details.ToList();
+
+                        foreach(var automobileDetail in automobileDetailsNew)
+                        {
+                            automobileDetail.AutomobileId = automobile.Id;
+                        }
+
+                        // we find the diference between all details and these which should be added in automobileDetails table
+                        // then in a loop set their detailsId and finally Add() them to the table in the DB
+                        int dif = detailsInDb.Count() - automobileDetailsNew.Count();
+                        int detailCount = detailsInDb.Count();
+
+                        for (int i = 0; i < dif; i++)
+                        {
+                            automobileDetailsNew[i].DetailId = detailsInDb[detailCount - dif + i].Id;
+                            _context.AutomobileDetails.Add(automobileDetailsNew[i]);
+                        }
+
+                    }
+
+                }
+
             }
             _context.SaveChanges();
 
@@ -70,7 +153,7 @@ namespace AutoSeller.Controllers
         // GET: Automobiles
         public ActionResult Index()
         {
-            var automobile = _context.Automobiles.Include(c => c.Country).ToList();
+            var automobile = _context.Automobiles.Include(c => c.Country).Include(c => c.AutomobileMake).Include(c => c.AutomobileModel).ToList();
 
             return View(automobile);
         }
@@ -102,10 +185,35 @@ namespace AutoSeller.Controllers
             if (automobile == null)
                 return HttpNotFound();
 
+            IEnumerable<AutomobileDetail> automobileDetailsInDb = _context.AutomobileDetails.ToList().Where(c => c.AutomobileId == id);
+            var detailsInDb = _context.Details.ToList();
+            List<AutomobileDetail> automobileDetails = new List<AutomobileDetail>();
+
+            foreach (var automobileDetail in automobileDetailsInDb)
+            {            
+                automobileDetails.Add(automobileDetail);                
+            }
+
             var viewModel = new AutomobileFormViewModel(automobile)
             {
-                Countries = _context.Countries.ToList()
+                Countries = _context.Countries.ToList(),
+                AutomobileMakes = _context.AutomobileMakes.ToList(),
+                AutomobileModels = _context.AutomobileModels.ToList(),
+                Details = detailsInDb,
+                AutomobileDetails = automobileDetails
             };
+
+            if(detailsInDb.Count() > automobileDetailsInDb.Count())
+            {
+                int dif = detailsInDb.Count() - automobileDetailsInDb.Count();
+                int i = 1;
+
+                while (i <= dif)
+                {
+                    viewModel.AutomobileDetails.Add(new AutomobileDetail());
+                    i++;
+                }
+            }
 
             return View("AutomobileForm", viewModel);
 
