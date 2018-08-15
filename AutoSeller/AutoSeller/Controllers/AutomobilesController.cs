@@ -155,8 +155,6 @@ namespace AutoSeller.Controllers
             _context.SaveChanges();
 
             //the next lines prepare image model which will be used to call the Uploadfiles view
-
-
             IEnumerable<FileModel> filesInDb = _context.FileModels.ToList().Where(c => c.AutomobileId == automobileId);
             
             var imageModel = new ImagesFormViewModel()

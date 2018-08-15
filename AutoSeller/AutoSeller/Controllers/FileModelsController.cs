@@ -27,16 +27,7 @@ namespace AutoSeller.Controllers
         // GET: FileModels
         public ActionResult UploadFiles(ImagesFormViewModel imageModel)
         {
-            //ImagesFormViewModel imageForm
-
-            IEnumerable<FileModel> filesInDb = _context.FileModels.ToList().Where(c => c.AutomobileId == 1);
-
-            var imageForm = new ImagesFormViewModel()
-            {
-                AutomobileId = 1,
-                FileModels = filesInDb
-            };
-            return View(imageForm);
+            return View(imageModel);
         }
 
         [HttpPost]
@@ -74,7 +65,6 @@ namespace AutoSeller.Controllers
                             };
 
                             _context.FileModels.Add(image);
-
                         }
                         else
                         {
@@ -93,7 +83,6 @@ namespace AutoSeller.Controllers
                             ViewBag.UploadStatus = counter + " files uploaded successfully.";
                         }
                     }
-
                 }
                 _context.SaveChanges();                
             }
