@@ -3,14 +3,19 @@
     ViewBag.Title = "AutomobileForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h1>Step 1</h1>
 
 @if (Model.Id != 0)
 {
-    <h2>Edit Automobile</h2>
+    <div style="padding-left:20px">
+        <h2>Edit Automobile</h2>
+    </div>
 }
 else
 {
-    <h2>New Automobile</h2>
+    <div style="padding-left:20px">
+        <h2>New Automobile</h2>
+    </div>
 }
 
 @using (Html.BeginForm("Save", "Automobiles"))
@@ -75,7 +80,7 @@ else
 
     if (Model.Details.Any())
     {
-        for(int i=0; i < Model.Details.Count(); i++)
+        for (int i = 0; i < Model.Details.Count(); i++)
         {
             <div class="form-group">
                 @Html.ValueFor(m => Model.Details[i].Name)
@@ -83,7 +88,7 @@ else
             </div>
         }
     }
-        
+
 
     //here we will declare all hidden fields
     @Html.HiddenFor(m => m.Id)
@@ -95,10 +100,10 @@ else
         @Html.HiddenFor(m => m.AutomobileDetails[i].AutomobileId)
     }
 
-    
+
     @Html.AntiForgeryToken()
     <p>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Save and Proceed</button>
         @Html.ActionLink("Cancel", "Index", "Customers", null, new { @class = "btn btn-primary" })
     </p>
 

@@ -68,6 +68,10 @@ namespace AutoSeller.Controllers
                 return View("AutomobileForm", viewModel);
             }
 
+            // create a variable 'automobileId' which will be passed as parameter to the 'UploadFiles' view
+            int automobileId;
+
+            // check if we create new automobile or edit existing one
             if (automobile.Id == 0)
             {
                 automobile.DateImported = DateTime.Now;
@@ -76,6 +80,7 @@ namespace AutoSeller.Controllers
 
                 List<Detail> details = _context.Details.ToList();
                 List<Automobile> automobiles = _context.Automobiles.ToList();
+                automobileId = automobiles.Last().Id;
 
 
                 if (details.Any())
@@ -91,6 +96,8 @@ namespace AutoSeller.Controllers
             }
             else
             {
+                automobileId = automobile.Id;
+
                 var automobileInDb = _context.Automobiles.Single(c => c.Id == automobile.Id);
                 automobileInDb.Name = automobile.Name;
                 automobileInDb.ReleaseDate = automobile.ReleaseDate;
@@ -147,7 +154,21 @@ namespace AutoSeller.Controllers
             }
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Automobiles");
+            //the next lines prepare image model which will be used to call the Uploadfiles view
+
+
+            IEnumerable<FileModel> filesInDb = _context.FileModels.ToList().Where(c => c.AutomobileId == automobileId);
+            
+            var imageModel = new ImagesFormViewModel()
+            {
+                AutomobileId = automobileId,
+                FileModels = filesInDb
+            };
+
+            // return RedirectToAction("Index", "Automobiles");
+            // return RedirectToAction("UploadFiles", "FileModels", automobileId);
+            return View("~/Views/FileModels/UploadFiles.cshtml", imageModel);
+
         }
 
         // GET: Automobiles

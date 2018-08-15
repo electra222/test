@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AutomobilesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DetailsController.cs" />
+    <Compile Include="Controllers\FileModelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
@@ -346,6 +347,34 @@
     <Compile Include="Migrations\201807310034238_MakeAllNullabeInAutomobileDetail.Designer.cs">
       <DependentUpon>201807310034238_MakeAllNullabeInAutomobileDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808052011047_CreateImageTable.cs" />
+    <Compile Include="Migrations\201808052011047_CreateImageTable.Designer.cs">
+      <DependentUpon>201808052011047_CreateImageTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808080504102_DeleteTitleInImages.cs" />
+    <Compile Include="Migrations\201808080504102_DeleteTitleInImages.Designer.cs">
+      <DependentUpon>201808080504102_DeleteTitleInImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808080511312_DeleteTitleColumnInImages.cs" />
+    <Compile Include="Migrations\201808080511312_DeleteTitleColumnInImages.Designer.cs">
+      <DependentUpon>201808080511312_DeleteTitleColumnInImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808131825292_FileTableCreate.cs" />
+    <Compile Include="Migrations\201808131825292_FileTableCreate.Designer.cs">
+      <DependentUpon>201808131825292_FileTableCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808131839007_FileTableAddForeignKey.cs" />
+    <Compile Include="Migrations\201808131839007_FileTableAddForeignKey.Designer.cs">
+      <DependentUpon>201808131839007_FileTableAddForeignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141351392_FileTableUpdateImageDelete.cs" />
+    <Compile Include="Migrations\201808141351392_FileTableUpdateImageDelete.Designer.cs">
+      <DependentUpon>201808141351392_FileTableUpdateImageDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808142145099_FileTableAddListVariable.cs" />
+    <Compile Include="Migrations\201808142145099_FileTableAddListVariable.Designer.cs">
+      <DependentUpon>201808142145099_FileTableAddListVariable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Automobile.cs" />
@@ -355,6 +384,7 @@
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Detail.cs" />
+    <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -363,12 +393,14 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AutomobileFormViewModel.cs" />
     <Compile Include="ViewModel\CustomerFormViewModel.cs" />
+    <Compile Include="ViewModel\ImagesFormViewModel.cs" />
     <Compile Include="ViewModel\RandomAutomobileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\my-StyleSheet.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -437,9 +469,11 @@
     <Content Include="Views\AutomobileDetails\Index.cshtml" />
     <Content Include="Views\Details\Index.cshtml" />
     <Content Include="Views\Details\DetailForm.cshtml" />
+    <Content Include="Views\FileModels\UploadFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -542,6 +576,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807310034238_MakeAllNullabeInAutomobileDetail.resx">
       <DependentUpon>201807310034238_MakeAllNullabeInAutomobileDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808052011047_CreateImageTable.resx">
+      <DependentUpon>201808052011047_CreateImageTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808080504102_DeleteTitleInImages.resx">
+      <DependentUpon>201808080504102_DeleteTitleInImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808080511312_DeleteTitleColumnInImages.resx">
+      <DependentUpon>201808080511312_DeleteTitleColumnInImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808131825292_FileTableCreate.resx">
+      <DependentUpon>201808131825292_FileTableCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808131839007_FileTableAddForeignKey.resx">
+      <DependentUpon>201808131839007_FileTableAddForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141351392_FileTableUpdateImageDelete.resx">
+      <DependentUpon>201808141351392_FileTableUpdateImageDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808142145099_FileTableAddListVariable.resx">
+      <DependentUpon>201808142145099_FileTableAddListVariable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

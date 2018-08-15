@@ -221,3 +221,10 @@ D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.CreateAutomo
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AddDetailValueInAutomobileDetail.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.RemoveActiveInAutomobileDetail.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.MakeAllNullabeInAutomobileDetail.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.CreateImageTable.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.DeleteTitleInImages.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.DeleteTitleColumnInImages.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableCreate.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableAddForeignKey.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableUpdateImageDelete.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableAddListVariable.resources

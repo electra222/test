@@ -28,7 +28,7 @@ namespace AutoSeller.Models
         public DbSet<AutomobileModel> AutomobileModels { get; set; }
         public DbSet<Detail> Details { get; set; }
         public DbSet<AutomobileDetail> AutomobileDetails { get; set; }
-
+        public DbSet<FileModel> FileModels { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

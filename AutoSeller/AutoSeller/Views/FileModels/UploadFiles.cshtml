@@ -1,0 +1,73 @@
+﻿@model  AutoSeller.ViewModel.ImagesFormViewModel
+
+@{
+    ViewBag.Title = "www.compilemode.com";
+}
+<h1>Step 2</h1>
+<div style="padding-left:20px">
+    <h2>Upload Images</h2>
+</div>
+
+<br/>
+@if (Model.FileModels.Any())
+{
+
+    foreach (var image in Model.FileModels)
+    {
+
+        <img src="@Url.Content(image.ImagePath)" width="150" height="150" hspace="20" />
+
+    }
+
+}
+
+@using (Html.BeginForm("UploadFiles", "FileModels", new { automobileId = Model.AutomobileId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.files, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.files, "", new { @type = "file", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(m => m.files, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Upload" class="btn btn-primary" />
+                    @Html.ActionLink("Finish", "Index", "Automobiles", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @if (Model.Success == true)
+                {
+                    <div class="col-md-offset-2 col-md-10 text-success">
+                        @ViewBag.UploadStatus
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-offset-2 col-md-10 text-danger">
+                        @ViewBag.UploadStatus
+                    </div>
+                }
+            </div>
+        </div>
+}
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    Scripts.Render("~/Scripts/jquery.validate.min.js")
+    Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+}
+
