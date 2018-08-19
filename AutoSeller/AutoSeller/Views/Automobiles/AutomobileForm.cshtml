@@ -23,11 +23,6 @@ else
     @Html.ValidationSummary(true, "Please fix the following errors.")
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Name)
-    </div>
-    <div class="form-group">
         @Html.LabelFor(m => m.AutomobileMakeId)
         @Html.DropDownListFor(m => m.AutomobileMakeId, new SelectList(Model.AutomobileMakes.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.AutomobileMakeId)
@@ -48,9 +43,9 @@ else
         @Html.ValidationMessageFor(m => m.CountryId)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Engine)
-        @Html.TextBoxFor(m => m.Engine, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Engine)
+        @Html.LabelFor(m => m.EngineId)
+        @Html.DropDownListFor(m => m.EngineId, new SelectList(Model.Engines.OrderBy(m => m.Name), "Id", "Name"), "Select Engine", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EngineId)
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Color)
@@ -71,11 +66,6 @@ else
         @Html.LabelFor(m => m.Miles)
         @Html.TextBoxFor(m => m.Miles, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Miles)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.NuberInStock)
-        @Html.TextBoxFor(m => m.NuberInStock, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.NuberInStock)
     </div>
 
     if (Model.Details.Any())
@@ -98,13 +88,14 @@ else
         @Html.HiddenFor(m => m.AutomobileDetails[i].Id)
         @Html.HiddenFor(m => m.AutomobileDetails[i].DetailId)
         @Html.HiddenFor(m => m.AutomobileDetails[i].AutomobileId)
+        @Html.HiddenFor(m => m.AutomobileDetails[i].AutomobileId)
     }
 
 
     @Html.AntiForgeryToken()
     <p>
         <button type="submit" class="btn btn-primary">Save and Proceed</button>
-        @Html.ActionLink("Cancel", "Index", "Customers", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Cancel", "Index", "Automobiles", null, new { @class = "btn btn-primary" })
     </p>
 
 }

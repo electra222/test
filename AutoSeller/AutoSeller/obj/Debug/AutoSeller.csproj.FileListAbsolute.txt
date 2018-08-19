@@ -228,3 +228,6 @@ D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableCre
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableAddForeignKey.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableUpdateImageDelete.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableAddListVariable.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.EngineTableCreate.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.EngineTableFillData.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AutomobileTableEdit.resources

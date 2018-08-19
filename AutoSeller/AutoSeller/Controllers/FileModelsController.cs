@@ -76,6 +76,7 @@ namespace AutoSeller.Controllers
                         {
                             ViewBag.UploadStatus = "There are files which are not images." + System.Environment.NewLine
                                 + counter + " files uploaded successfully.";
+                            
                         }
                         else
                         {

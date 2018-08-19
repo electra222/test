@@ -375,6 +375,18 @@
     <Compile Include="Migrations\201808142145099_FileTableAddListVariable.Designer.cs">
       <DependentUpon>201808142145099_FileTableAddListVariable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808171531455_EngineTableCreate.cs" />
+    <Compile Include="Migrations\201808171531455_EngineTableCreate.Designer.cs">
+      <DependentUpon>201808171531455_EngineTableCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808171536382_EngineTableFillData.cs" />
+    <Compile Include="Migrations\201808171536382_EngineTableFillData.Designer.cs">
+      <DependentUpon>201808171536382_EngineTableFillData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808180954378_AutomobileTableEdit.cs" />
+    <Compile Include="Migrations\201808180954378_AutomobileTableEdit.Designer.cs">
+      <DependentUpon>201808180954378_AutomobileTableEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Automobile.cs" />
@@ -384,6 +396,7 @@
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Detail.cs" />
+    <Compile Include="Models\Engine.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -391,6 +404,7 @@
     <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\AutomobileFilterViewModel.cs" />
     <Compile Include="ViewModel\AutomobileFormViewModel.cs" />
     <Compile Include="ViewModel\CustomerFormViewModel.cs" />
     <Compile Include="ViewModel\ImagesFormViewModel.cs" />
@@ -597,6 +611,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808142145099_FileTableAddListVariable.resx">
       <DependentUpon>201808142145099_FileTableAddListVariable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808171531455_EngineTableCreate.resx">
+      <DependentUpon>201808171531455_EngineTableCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808171536382_EngineTableFillData.resx">
+      <DependentUpon>201808171536382_EngineTableFillData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808180954378_AutomobileTableEdit.resx">
+      <DependentUpon>201808180954378_AutomobileTableEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

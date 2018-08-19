@@ -22,9 +22,6 @@ namespace AutoSeller.Models
 
         public int AutomobileModelId { get; set; }
 
-        [Required]
-        public string Name { get; set; }
-
         public Country Country { get; set; }
 
         [Display(Name = "Country")]
@@ -36,20 +33,21 @@ namespace AutoSeller.Models
         [Display(Name = "Import Date")]
         public DateTime DateImported { get; set; }
 
-        [Display(Name = "Number in Stock")]
-        [Range(1, 20)]
-        public byte NuberInStock { get; set; }
+        public Engine Engine { get; set; }
 
-        public string Engine { get; set; }
+        [Display(Name = "Engine")]
+        public int? EngineId { get; set; }
 
         public string Color { get; set; }
 
-        [Range(1, 5)]
+        [Range(1, 6)]
         public byte Doors { get; set; }
 
         public string Transmission { get; set; }
 
         public float Miles { get; set; }
+
+        public virtual ICollection<FileModel> FileModels { get; set; }
 
     }
 }

@@ -15,17 +15,16 @@ namespace AutoSeller.ViewModel
 
         public IEnumerable<AutomobileModel> AutomobileModels { get; set; }
 
+        public IEnumerable<Engine> Engines { get; set; }
+
+
         public List<Detail> Details { get; set; }
 
-        //        public IEnumerable<AutomobileDetail> AutomobileDetails { get; set; }
         public List<AutomobileDetail> AutomobileDetails { get; set; }
-
 
         public int? Id { get; set; }
 
         //the string is nullable by default, so no need of ?
-        [Required]
-        public string Name { get; set; }
 
         [Display(Name = "Country")]
         [Required]
@@ -35,11 +34,6 @@ namespace AutoSeller.ViewModel
         [Required]
         public DateTime? ReleaseDate { get; set; }
 
-        [Display(Name = "Number in Stock")]
-        [Range(1, 20)]
-        [Required]
-        public byte? NuberInStock { get; set; }
-
         [Display(Name = "Make")]
         [Required]
         public int? AutomobileMakeId { get; set; }
@@ -48,7 +42,9 @@ namespace AutoSeller.ViewModel
         [Required]
         public int? AutomobileModelId { get; set; }
 
-        public string Engine { get; set; }
+        [Display(Name = "Engine")]
+        [Required]
+        public int? EngineId { get; set; }
 
         public string Color { get; set; }
 
@@ -67,13 +63,11 @@ namespace AutoSeller.ViewModel
         public AutomobileFormViewModel(Automobile automobile)
         {
             Id = automobile.Id;
-            Name = automobile.Name;
             CountryId = automobile.CountryId;
             ReleaseDate = automobile.ReleaseDate;
-            NuberInStock = automobile.NuberInStock;
             AutomobileMakeId = automobile.AutomobileMakeId;
             AutomobileModelId = automobile.AutomobileModelId;
-            Engine = automobile.Engine;
+            EngineId = automobile.EngineId;
             Color = automobile.Color;
             Doors = automobile.Doors;
             Transmission = automobile.Transmission;

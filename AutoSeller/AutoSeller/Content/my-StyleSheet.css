@@ -7,3 +7,10 @@
     background-color: #f1f1f1;
     padding: 20px 10px;
 }
+
+.listItemContainer {
+    position: relative;
+    float: left;
+    margin-right: 13px;
+    margin-bottom: 13px;
+}

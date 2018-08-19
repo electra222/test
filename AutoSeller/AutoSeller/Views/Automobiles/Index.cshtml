@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AutoSeller.Models.Automobile>
+﻿@model AutoSeller.ViewModel.AutomobileFilterViewModel
 
 @{
     ViewBag.Title = "Automobiles";
@@ -11,9 +11,22 @@
     @Html.ActionLink("New Automobile", "New", "Automobiles", null, new { @class = "btn btn-primary" })
 </p>
 
-@if (!Model.Any())
+@using (Html.BeginForm("Index", "Automobiles"))
 {
-    <p>There aren't any uploaded automobiles yet.</p>
+<p>
+    Make:
+    @Html.DropDownListFor(m => m.Automobile.AutomobileMakeId, new SelectList(Model.AutomobileMakeList.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @id="make_id", @class = "form-control", @onchange = "ajax(this.value)" })
+    Model:
+    @Html.DropDownListFor(m => m.Automobile.AutomobileModelId, Enumerable.Empty<SelectListItem>(), "Select Model", new { @id = "model_dropdown", @class = "form-control" })
+    Year:
+    @Html.TextBoxFor(m => Model.Year, new { @class = "form-control" })
+    <input type="submit" value="Search" />
+</p>
+}
+
+@if (!Model.AutomobileList.Any())
+{
+    <p style="color:red;">There aren't any found results.</p>
 }
 else
 {
@@ -21,23 +34,80 @@ else
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Automobiles</th>
+                <th></th>
                 <th>Countries</th>
                 <th>Makes</th>
                 <th>Models</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var automobile in Model)
+            @foreach (var automobile in Model.AutomobileList)
             {
-            <tr>
-                <td>@Html.ActionLink(automobile.Name, "Edit", "Automobiles", new { id = automobile.Id }, null)</td>
-                <td>@automobile.Country.Name</td>
-                <td>@automobile.AutomobileMake.Name</td>
-                <td>@automobile.AutomobileModel.Name</td>
-
-            </tr>
+                <tr>
+                    <td>
+                        @if (automobile.FileModels.Any())
+                        {
+                            <img src="@Url.Content(automobile.FileModels.First().ImagePath)" width="150" height="150" hspace="20" />
+                        }
+                    </td>
+                    <td>@automobile.Country.Name</td>
+                    <td>@automobile.AutomobileMake.Name</td>
+                    <td>@automobile.AutomobileModel.Name</td>
+                    <td>@Html.ActionLink("Edit", "Edit", "Automobiles", new { id = automobile.Id }, null)</td>
+                </tr>
             }
         </tbody>
     </table>
 }
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+    
+    var ajax = function () {
+        var makeId = $('#make_id').val();
+        $.ajax({
+            type: 'GET',
+            data: { makeId: makeId },
+            url: '@Url.Action("GetModel","Automobiles")',
+            success: function (result) {
+                helpers.buildDropdown(
+                    result,
+                    $('#model_dropdown'),
+                    'Select Model'
+                );
+            },
+
+            error: function () {
+                $('#model_dropdown').html('');
+                $('#model_dropdown').append('<option value="">Select Model</option>');
+            }
+        })
+    }
+
+    var helpers =
+        {
+            buildDropdown: function (result, dropdown, emptyMessage) {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Check result isnt empty
+                if (result != '') {
+                    // Loop through each of the results and append the option to the dropdown
+                    $.each(result, function (k, v) {
+                        dropdown.append('<option value="' + v.Id + '">' + v.Name + '</option>');                        
+                    });
+                }
+            }
+        }
+
+
+    
+
+</script>

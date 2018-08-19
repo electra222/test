@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoSeller.Models;
 using AutoSeller.ViewModel;
+using System.Web.Script.Serialization;
 
 namespace AutoSeller.Controllers
 {
@@ -30,6 +31,7 @@ namespace AutoSeller.Controllers
             var autoMakes = _context.AutomobileMakes.ToList();
             var autoModels = _context.AutomobileModels.ToList();
             var details = _context.Details.ToList();
+            var engines = _context.Engines.ToList();
 
             var viewModel = new AutomobileFormViewModel()
             {
@@ -37,6 +39,7 @@ namespace AutoSeller.Controllers
                 AutomobileMakes = autoMakes,
                 AutomobileModels = autoModels,
                 Details = details,
+                Engines = engines,
                 AutomobileDetails = new List<AutomobileDetail>()
             };
 
@@ -62,6 +65,7 @@ namespace AutoSeller.Controllers
                     AutomobileMakes = _context.AutomobileMakes.ToList(),
                     AutomobileModels = _context.AutomobileModels.ToList(),
                     Details = _context.Details.ToList(),
+                    Engines = _context.Engines.ToList(),
                     AutomobileDetails = automobileDetails
                 };
 
@@ -79,8 +83,11 @@ namespace AutoSeller.Controllers
                 _context.SaveChanges();
 
                 List<Detail> details = _context.Details.ToList();
-                List<Automobile> automobiles = _context.Automobiles.ToList();
-                automobileId = automobiles.Last().Id;
+                //  List<Automobile> automobiles = _context.Automobiles.ToList();
+                var automobileLastId = _context.Automobiles.ToList().Last().Id;
+               // var automobileLastId1 = _context.Automobiles.Max()
+                // automobileId = automobiles.Last().Id;
+                automobileId = automobileLastId;
 
 
                 if (details.Any())
@@ -88,7 +95,8 @@ namespace AutoSeller.Controllers
                     for(int i = 0; i < details.Count(); i++)
                     {
                         automobileDetails[i].DetailId = details[i].Id;
-                        automobileDetails[i].AutomobileId = automobiles.Last().Id;
+                        // automobileDetails[i].AutomobileId = automobiles.Last().Id;
+                        automobileDetails[i].AutomobileId = automobileLastId;
                         _context.AutomobileDetails.Add(automobileDetails[i]);
                     }
 
@@ -99,13 +107,11 @@ namespace AutoSeller.Controllers
                 automobileId = automobile.Id;
 
                 var automobileInDb = _context.Automobiles.Single(c => c.Id == automobile.Id);
-                automobileInDb.Name = automobile.Name;
                 automobileInDb.ReleaseDate = automobile.ReleaseDate;
                 automobileInDb.CountryId = automobile.CountryId;
-                automobileInDb.NuberInStock = automobile.NuberInStock;
                 automobileInDb.AutomobileMakeId = automobile.AutomobileMakeId;
                 automobileInDb.AutomobileModelId = automobile.AutomobileModelId;
-                automobileInDb.Engine = automobile.Engine;
+                automobileInDb.EngineId = automobile.EngineId;
                 automobileInDb.Color = automobile.Color;
                 automobileInDb.Transmission = automobile.Transmission;
                 automobileInDb.Miles = automobile.Miles;
@@ -114,7 +120,7 @@ namespace AutoSeller.Controllers
                 {                
                     //we take all automobileDetails correcponding to the current automobile, then set their Vaues  
                     //to the new Values coming from the view in the list automobileDetails
-                    IEnumerable<AutomobileDetail> automobileDetailsInDb = _context.AutomobileDetails.ToList().Where(c => c.AutomobileId == automobile.Id);
+                    IEnumerable<AutomobileDetail> automobileDetailsInDb = _context.AutomobileDetails.Where(c => c.AutomobileId == automobile.Id);
                     List<AutomobileDetail> automobileDetailsOld = automobileDetails.FindAll(c => c.AutomobileId != null);
                     int n = 0;
 
@@ -170,17 +176,61 @@ namespace AutoSeller.Controllers
         }
 
         // GET: Automobiles
-        public ActionResult Index()
+        public ActionResult Index(Automobile Automobile, int? year)
         {
-            var automobile = _context.Automobiles.Include(c => c.Country).Include(c => c.AutomobileMake).Include(c => c.AutomobileModel).ToList();
+            var automobiles = _context.Automobiles.Include(c => c.Country).Include(c => c.AutomobileMake).Include(c => c.AutomobileModel).Include(c => c.Engine).ToList();
+            
+            var images = _context.FileModels.ToList();
 
-            return View(automobile);
+            if (Automobile.AutomobileMakeId != 0)
+            {
+                automobiles = automobiles.Where(c => c.AutomobileMakeId == Automobile.AutomobileMakeId).ToList();
+            }
+
+            if (Automobile.AutomobileModelId != 0)
+            {
+                automobiles = automobiles.Where(c => c.AutomobileModelId == Automobile.AutomobileModelId).ToList();
+            }
+
+            if (year != 0)
+            {
+                automobiles = automobiles.Where(c => c.ReleaseDate.ToString().Contains(year.ToString())).ToList();
+            }
+
+                var viewModel = new AutomobileFilterViewModel()
+            {
+                AutomobileList = automobiles,
+                Automobile = new Automobile(),
+                AutomobileMakeList = _context.AutomobileMakes.ToList(),
+                AutomobileModelList = _context.AutomobileModels.ToList(),
+                FileModel = images
+            };
+
+            return View(viewModel);
+        }
+
+        public ActionResult GetModel(String makeId)
+        {
+            var jsonSerialiser = new JavaScriptSerializer();
+            String json = null;
+            int makeIdInt;
+            if (Int32.TryParse(makeId, out makeIdInt))
+            {
+                var modelInDb = _context.AutomobileModels.Where(c => c.AutomobileMakeId == makeIdInt).ToList();                
+                json = jsonSerialiser.Serialize(modelInDb);
+            }
+            else
+            {
+                json = jsonSerialiser.Serialize(new List<String>());
+            }
+            
+            return Content(json, "application/json");
         }
 
         // GET: Automobiles/Random
         public ActionResult Random()
         {
-            var automobile = new Automobile() { Name = "Audi" };
+            var automobile = new Automobile() { Color = "Audi" };
             var customers = new List<Customer>
             {
                 new Customer {Name = "Customer 1" },
@@ -219,6 +269,7 @@ namespace AutoSeller.Controllers
                 AutomobileMakes = _context.AutomobileMakes.ToList(),
                 AutomobileModels = _context.AutomobileModels.ToList(),
                 Details = detailsInDb,
+                Engines = _context.Engines.ToList(),
                 AutomobileDetails = automobileDetails
             };
 
@@ -263,8 +314,8 @@ namespace AutoSeller.Controllers
         {
             var automobiles = new List<Automobile>
             {
-                new Automobile {Id = 1, Name = "Audi" },
-                new Automobile {Id = 2, Name = "Aston Martin" }
+                new Automobile {Id = 1, Color = "Audi" },
+                new Automobile {Id = 2, Color = "Aston Martin" }
 
             };
 
