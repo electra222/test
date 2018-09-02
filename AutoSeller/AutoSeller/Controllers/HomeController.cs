@@ -75,10 +75,24 @@ namespace AutoSeller.Controllers
                 automobiles = automobiles.Where(c => c.ReleaseDate.ToString().Contains(year.ToString())).ToList();
             }
 
+            List<IEnumerable<Automobile>> AutomobileLists = new List<IEnumerable<Automobile>>();
+            int index = 0;
+            var size = automobiles.Count();
+
+            while (index < size)
+            {
+                int count = size - index >= 4 ? 4 : (size - index); 
+                IEnumerable<Automobile> automobiles2 = automobiles.GetRange(index, count);
+                AutomobileLists.Add(automobiles2);
+                index = index + count;
+               
+                
+            }
+
             var viewModel = new HomeFormViewModel()
             {
                 HomeWelcomeFormViewModel = new HomeWelcomeFormViewModel(),
-                AutomobileList = automobiles,
+                AutomobileList = AutomobileLists,
                 Automobile = new Automobile(),
                 AutomobileMakeList = _context.AutomobileMakes.ToList(),
                 AutomobileModelList = _context.AutomobileModels.ToList(),

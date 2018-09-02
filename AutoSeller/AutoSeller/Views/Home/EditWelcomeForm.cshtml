@@ -8,20 +8,17 @@
 @using (Html.BeginForm("FileUpload", "Home", FormMethod.Post,
                             new { enctype = "multipart/form-data" }))
 {
-    <div class="form-horizontal">
+    <div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.LabelFor(m => m.file, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.file)
+            <div class="row-margin-bottom">
                 @Html.TextBoxFor(m => m.file, "", new { @type = "file", @multiple = "multiple" })
                 @Html.ValidationMessageFor(m => m.file, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div>
                 <input type="submit" value="Upload" class="btn btn-primary" />
             </div>
         </div>
@@ -52,9 +49,9 @@
 
 
 
-
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/my-StyleSheet.css")
 
 }

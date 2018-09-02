@@ -80,6 +80,7 @@ namespace AutoSeller.Controllers
             if (automobile.Id == 0)
             {
                 automobile.DateImported = DateTime.Now;
+                automobile.StatusId = 1;
                 _context.Automobiles.Add(automobile);
                 _context.SaveChanges();
 
@@ -200,7 +201,7 @@ namespace AutoSeller.Controllers
                     automobiles = automobiles.Where(c => c.ReleaseDate.ToString().Contains(year.ToString())).ToList();
                 }
 
-                var viewModel = new AutomobileFilterViewModel()
+            var viewModel = new AutomobileFilterViewModel()
                 {
                     AutomobileList = automobiles,
                     Automobile = new Automobile(),

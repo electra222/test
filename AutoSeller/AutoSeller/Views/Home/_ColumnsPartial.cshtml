@@ -1,0 +1,36 @@
+﻿@model AutoSeller.ViewModel.ColumnsViewModel
+@{int i = 1;}
+@foreach (var automobile in Model.Automobiles)
+{
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="col-sm-12">
+                @if (automobile.FileModels.Any())
+                {
+                    <img src="@Url.Content(automobile.FileModels.First().ImagePath)" width="150" height="150" />
+                }
+                else
+                {
+                    <img src="@Url.Content("~/Content/Images/no_photo_available.png")" width="150" height="150"/>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="bold">Country</span>: @automobile.Country.Name
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="bold">Make</span>: @automobile.AutomobileMake.Name
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="bold">Model</span>: @automobile.AutomobileModel.Name
+            </div>
+        </div>
+    </div>
+
+    i++;
+}

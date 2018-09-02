@@ -14,3 +14,28 @@
     margin-right: 13px;
     margin-bottom: 13px;
 }
+
+.submit-btn-filter {
+    margin-top: 22px;
+}
+
+.filter {
+    margin-bottom: 1%;
+}
+
+.title-section {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.title-text {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.row-margin-bottom {
+    margin-bottom: 1%;
+}

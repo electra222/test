@@ -452,6 +452,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AutomobileFilterViewModel.cs" />
     <Compile Include="ViewModel\AutomobileFormViewModel.cs" />
+    <Compile Include="ViewModel\ColumnsViewModel.cs" />
     <Compile Include="ViewModel\CustomerFormViewModel.cs" />
     <Compile Include="ViewModel\HomeFormViewModel.cs" />
     <Compile Include="ViewModel\HomeWelcomeFormViewModel.cs" />
@@ -539,6 +540,7 @@
     <Content Include="Views\Automobiles\Home.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\EditWelcomeForm.cshtml" />
+    <Content Include="Views\Home\_ColumnsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

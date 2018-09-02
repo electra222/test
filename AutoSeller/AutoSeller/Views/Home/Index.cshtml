@@ -1,4 +1,5 @@
-﻿@model AutoSeller.ViewModel.HomeFormViewModel
+﻿@using AutoSeller.ViewModel
+@model HomeFormViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -8,27 +9,39 @@
 
 @using (Html.BeginForm("Index", "Home"))
 {
-<div class="container ">
-    <img src="@Url.Content(AutoSeller.ViewModel.HomeWelcomeFormViewModel.ImagePath)" width="80" height="80" hspace="20" />
-    <text style="color:midnightblue;font-family:cursive;font-size:200%;">@AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText</text>
-    <p>
-        @Html.ActionLink("Edit", "EditWelcomeForm", "Home", null, new { @class = "btn btn-primary" })
-    </p>
-</div>
+    <div class="container row title-section">
+        <div class="col-sm-1">
+            <img src="@Url.Content(AutoSeller.ViewModel.HomeWelcomeFormViewModel.ImagePath)" width="80" height="80" hspace="20" />
+        </div>
+        <div class="col-sm-10 title-text">
+            <text style="color:midnightblue;font-family:cursive;font-size:200%;">@AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText</text>
+        </div>
+        <div class="col-sm-1">
+            @Html.ActionLink("Edit", "EditWelcomeForm", "Home", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
 }
 
 
 @using (Html.BeginForm("Index", "Home"))
 {
-    <p>
-        Make:
-        @Html.DropDownListFor(m => m.Automobile.AutomobileMakeId, new SelectList(Model.AutomobileMakeList.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @id = "make_id", @class = "form-control", @onchange = "ajax(this.value)" })
-        Model:
-        @Html.DropDownListFor(m => m.Automobile.AutomobileModelId, Enumerable.Empty<SelectListItem>(), "Select Model", new { @id = "model_dropdown", @class = "form-control" })
-        Year:
-        @Html.TextBoxFor(m => Model.Year, new { @class = "form-control" })
-        <input type="submit" value="Search" class="btn btn-primary" />
-    </p>
+    <div class="row filter">
+        <div class="col-sm-3">
+            Make:
+            @Html.DropDownListFor(m => m.Automobile.AutomobileMakeId, new SelectList(Model.AutomobileMakeList.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @id = "make_id", @class = "form-control", @onchange = "ajax(this.value)" })
+        </div>
+        <div class="col-sm-3">
+            Model:
+            @Html.DropDownListFor(m => m.Automobile.AutomobileModelId, Enumerable.Empty<SelectListItem>(), "Select Model", new { @id = "model_dropdown", @class = "form-control" })
+        </div>
+        <div class="col-sm-3">
+            Year:
+            @Html.TextBoxFor(m => Model.Year, new { @class = "form-control" })
+        </div>
+        <div class="col-sm-3">
+            <input type="submit" value="Search" class="btn btn-primary submit-btn-filter" />
+        </div>
+    </div>
 }
 
 @if (!Model.AutomobileList.Any())
@@ -38,46 +51,26 @@
 else
 {
     // <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
-    <table id="automobiles" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Countries</th>
-                <th>Makes</th>
-                <th>Models</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var automobile in Model.AutomobileList)
-            {
-                <tr>
-                    <td>
-                        @if (automobile.FileModels.Any())
-                        {
-                            <img src="@Url.Content(automobile.FileModels.First().ImagePath)" width="150" height="150" hspace="20" />
-                        }
-                        else
-                        {
-                            <img src="@Url.Content("~/Content/Images/no_photo_available.png")" width="150" height="150" hspace="20" />
-                        }
-                    </td>
-                    <td>@automobile.Country.Name</td>
-                    <td>@automobile.AutomobileMake.Name</td>
-                    <td>@automobile.AutomobileModel.Name</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        foreach (var columnsAutomobiles in Model.AutomobileList)
+        {
+
+        <div class="row row-margin-bottom">
+            @Html.Partial("_ColumnsPartial", new ColumnsViewModel { Automobiles= columnsAutomobiles })
+        </div>
+    }
+
 }
 
 
 @section scripts
 {
-    @Scripts.Render("~/bundles/jqueryval")
+                    @Scripts.Render("~/bundles/jqueryval")
+                    @Styles.Render("~/Content/my-StyleSheet.css")
 
-}
+                }
 
-<script type="text/javascript">
+
+                <script type="text/javascript">
 
     var ajax = function () {
         var makeId = $('#make_id').val();
@@ -116,6 +109,6 @@ else
                 }
             }
         }
-</script>
+                </script>
 
 
