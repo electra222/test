@@ -63,7 +63,8 @@ namespace AutoSeller.Controllers
             else
             {
                 var detailInDb = _context.Details.Single(c => c.Id == detail.Id);
-                detailInDb.Name = detail.Name;                
+                detailInDb.Name = detail.Name;
+                detailInDb.Active = detail.Active;
             }
 
             _context.SaveChanges();

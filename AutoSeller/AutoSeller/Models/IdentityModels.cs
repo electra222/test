@@ -30,6 +30,7 @@ namespace AutoSeller.Models
         public DbSet<AutomobileDetail> AutomobileDetails { get; set; }
         public DbSet<FileModel> FileModels { get; set; }
         public DbSet<Engine> Engines { get; set; }
+        public DbSet<Status> Statuses { get; set; }
 
 
         public ApplicationDbContext()

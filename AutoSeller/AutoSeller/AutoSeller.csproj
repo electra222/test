@@ -387,6 +387,50 @@
     <Compile Include="Migrations\201808180954378_AutomobileTableEdit.Designer.cs">
       <DependentUpon>201808180954378_AutomobileTableEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808192221164_DetailActiveVariableAdd.cs" />
+    <Compile Include="Migrations\201808192221164_DetailActiveVariableAdd.Designer.cs">
+      <DependentUpon>201808192221164_DetailActiveVariableAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808192248429_DetailActiveVariableAddNotNullabe.cs" />
+    <Compile Include="Migrations\201808192248429_DetailActiveVariableAddNotNullabe.Designer.cs">
+      <DependentUpon>201808192248429_DetailActiveVariableAddNotNullabe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808192256547_DetailActiveVariableAddNotNullabe2.cs" />
+    <Compile Include="Migrations\201808192256547_DetailActiveVariableAddNotNullabe2.Designer.cs">
+      <DependentUpon>201808192256547_DetailActiveVariableAddNotNullabe2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808240444517_StatusesTableCreate.cs" />
+    <Compile Include="Migrations\201808240444517_StatusesTableCreate.Designer.cs">
+      <DependentUpon>201808240444517_StatusesTableCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808240445543_StatusesTableFill.cs" />
+    <Compile Include="Migrations\201808240445543_StatusesTableFill.Designer.cs">
+      <DependentUpon>201808240445543_StatusesTableFill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808240504271_StatusesTableRename.cs" />
+    <Compile Include="Migrations\201808240504271_StatusesTableRename.Designer.cs">
+      <DependentUpon>201808240504271_StatusesTableRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808240508491_StatusesTableFill2.cs" />
+    <Compile Include="Migrations\201808240508491_StatusesTableFill2.Designer.cs">
+      <DependentUpon>201808240508491_StatusesTableFill2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808250813150_StatusToAutomobileTable.cs" />
+    <Compile Include="Migrations\201808250813150_StatusToAutomobileTable.Designer.cs">
+      <DependentUpon>201808250813150_StatusToAutomobileTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808250834322_StatusToAutomobileTableNotNull.cs" />
+    <Compile Include="Migrations\201808250834322_StatusToAutomobileTableNotNull.Designer.cs">
+      <DependentUpon>201808250834322_StatusToAutomobileTableNotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808262246089_SeedUsers.cs" />
+    <Compile Include="Migrations\201808262246089_SeedUsers.Designer.cs">
+      <DependentUpon>201808262246089_SeedUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808262312379_SeedUsers2.cs" />
+    <Compile Include="Migrations\201808262312379_SeedUsers2.Designer.cs">
+      <DependentUpon>201808262312379_SeedUsers2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Automobile.cs" />
@@ -402,11 +446,15 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Min18YearsIfAMember.cs" />
+    <Compile Include="Models\RoleName.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AutomobileFilterViewModel.cs" />
     <Compile Include="ViewModel\AutomobileFormViewModel.cs" />
     <Compile Include="ViewModel\CustomerFormViewModel.cs" />
+    <Compile Include="ViewModel\HomeFormViewModel.cs" />
+    <Compile Include="ViewModel\HomeWelcomeFormViewModel.cs" />
     <Compile Include="ViewModel\ImagesFormViewModel.cs" />
     <Compile Include="ViewModel\RandomAutomobileViewModel.cs" />
   </ItemGroup>
@@ -414,6 +462,8 @@
     <Content Include="Content\bootstrap-lumen.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Logo_TV_2015.png" />
+    <Content Include="Content\Images\no_photo_available.png" />
     <Content Include="Content\my-StyleSheet.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -421,6 +471,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -451,7 +503,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\IndexOld.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -484,10 +536,12 @@
     <Content Include="Views\Details\Index.cshtml" />
     <Content Include="Views\Details\DetailForm.cshtml" />
     <Content Include="Views\FileModels\UploadFiles.cshtml" />
+    <Content Include="Views\Automobiles\Home.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\EditWelcomeForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -620,6 +674,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808180954378_AutomobileTableEdit.resx">
       <DependentUpon>201808180954378_AutomobileTableEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808192221164_DetailActiveVariableAdd.resx">
+      <DependentUpon>201808192221164_DetailActiveVariableAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808192248429_DetailActiveVariableAddNotNullabe.resx">
+      <DependentUpon>201808192248429_DetailActiveVariableAddNotNullabe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808192256547_DetailActiveVariableAddNotNullabe2.resx">
+      <DependentUpon>201808192256547_DetailActiveVariableAddNotNullabe2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808240444517_StatusesTableCreate.resx">
+      <DependentUpon>201808240444517_StatusesTableCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808240445543_StatusesTableFill.resx">
+      <DependentUpon>201808240445543_StatusesTableFill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808240504271_StatusesTableRename.resx">
+      <DependentUpon>201808240504271_StatusesTableRename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808240508491_StatusesTableFill2.resx">
+      <DependentUpon>201808240508491_StatusesTableFill2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808250813150_StatusToAutomobileTable.resx">
+      <DependentUpon>201808250813150_StatusToAutomobileTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808250834322_StatusToAutomobileTableNotNull.resx">
+      <DependentUpon>201808250834322_StatusToAutomobileTableNotNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808262246089_SeedUsers.resx">
+      <DependentUpon>201808262246089_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808262312379_SeedUsers2.resx">
+      <DependentUpon>201808262312379_SeedUsers2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

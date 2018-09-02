@@ -1,31 +1,121 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model AutoSeller.ViewModel.HomeFormViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+@using (Html.BeginForm("Index", "Home"))
+{
+<div class="container ">
+    <img src="@Url.Content(AutoSeller.ViewModel.HomeWelcomeFormViewModel.ImagePath)" width="80" height="80" hspace="20" />
+    <text style="color:midnightblue;font-family:cursive;font-size:200%;">@AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText</text>
+    <p>
+        @Html.ActionLink("Edit", "EditWelcomeForm", "Home", null, new { @class = "btn btn-primary" })
+    </p>
 </div>
+}
+
+
+@using (Html.BeginForm("Index", "Home"))
+{
+    <p>
+        Make:
+        @Html.DropDownListFor(m => m.Automobile.AutomobileMakeId, new SelectList(Model.AutomobileMakeList.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @id = "make_id", @class = "form-control", @onchange = "ajax(this.value)" })
+        Model:
+        @Html.DropDownListFor(m => m.Automobile.AutomobileModelId, Enumerable.Empty<SelectListItem>(), "Select Model", new { @id = "model_dropdown", @class = "form-control" })
+        Year:
+        @Html.TextBoxFor(m => Model.Year, new { @class = "form-control" })
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </p>
+}
+
+@if (!Model.AutomobileList.Any())
+{
+    <p style="color:red;">There aren't any found results.</p>
+}
+else
+{
+    // <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
+    <table id="automobiles" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Countries</th>
+                <th>Makes</th>
+                <th>Models</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var automobile in Model.AutomobileList)
+            {
+                <tr>
+                    <td>
+                        @if (automobile.FileModels.Any())
+                        {
+                            <img src="@Url.Content(automobile.FileModels.First().ImagePath)" width="150" height="150" hspace="20" />
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/Content/Images/no_photo_available.png")" width="150" height="150" hspace="20" />
+                        }
+                    </td>
+                    <td>@automobile.Country.Name</td>
+                    <td>@automobile.AutomobileMake.Name</td>
+                    <td>@automobile.AutomobileModel.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+
+<script type="text/javascript">
+
+    var ajax = function () {
+        var makeId = $('#make_id').val();
+        $.ajax({
+            type: 'GET',
+            data: { makeId: makeId },
+            url: '@Url.Action("GetModel","Home")',
+            success: function (result) {
+                helpers.buildDropdown(
+                    result,
+                    $('#model_dropdown'),
+                    'Select Model'
+                );
+            },
+
+            error: function () {
+                $('#model_dropdown').html('');
+                $('#model_dropdown').append('<option value="">Select Model</option>');
+            }
+        })
+    }
+
+    var helpers =
+        {
+            buildDropdown: function (result, dropdown, emptyMessage) {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Check result isnt empty
+                if (result != '') {
+                    // Loop through each of the results and append the option to the dropdown
+                    $.each(result, function (k, v) {
+                        dropdown.append('<option value="' + v.Id + '">' + v.Name + '</option>');
+                    });
+                }
+            }
+        }
+</script>
+
+

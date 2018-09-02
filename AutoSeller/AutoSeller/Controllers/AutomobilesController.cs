@@ -25,6 +25,7 @@ namespace AutoSeller.Controllers
             _context.Dispose();
         }
 
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult New()
         {
             var countries = _context.Countries.ToList();
@@ -144,12 +145,13 @@ namespace AutoSeller.Controllers
 
                         // we find the diference between all details and these which should be added in automobileDetails table
                         // then in a loop set their detailsId and finally Add() them to the table in the DB
-                        int dif = detailsInDb.Count() - automobileDetailsNew.Count();
+                      //  int dif = detailsInDb.Count() - automobileDetailsNew.Count();
+                        int automobileDetailsNewCount = automobileDetailsNew.Count();
                         int detailCount = detailsInDb.Count();
 
-                        for (int i = 0; i < dif; i++)
+                        for (int i = 0; i < automobileDetailsNewCount; i++)
                         {
-                            automobileDetailsNew[i].DetailId = detailsInDb[detailCount - dif + i].Id;
+                            automobileDetailsNew[i].DetailId = detailsInDb[detailCount - automobileDetailsNewCount + i].Id;
                             _context.AutomobileDetails.Add(automobileDetailsNew[i]);
                         }
 
@@ -177,9 +179,45 @@ namespace AutoSeller.Controllers
 
         // GET: Automobiles
         public ActionResult Index(Automobile Automobile, int? year)
+        {            
+                //get all automobiles in Active status from the DB
+                var automobiles = _context.Automobiles.Where(c => c.StatusId == 1).Include(c => c.Country).Include(c => c.AutomobileMake).Include(c => c.AutomobileModel).Include(c => c.Engine).ToList();
+
+                var images = _context.FileModels.ToList();
+
+                if (Automobile.AutomobileMakeId != 0)
+                {
+                    automobiles = automobiles.Where(c => c.AutomobileMakeId == Automobile.AutomobileMakeId).ToList();
+                }
+
+                if (Automobile.AutomobileModelId != 0)
+                {
+                    automobiles = automobiles.Where(c => c.AutomobileModelId == Automobile.AutomobileModelId).ToList();
+                }
+
+                if (year != 0)
+                {
+                    automobiles = automobiles.Where(c => c.ReleaseDate.ToString().Contains(year.ToString())).ToList();
+                }
+
+                var viewModel = new AutomobileFilterViewModel()
+                {
+                    AutomobileList = automobiles,
+                    Automobile = new Automobile(),
+                    AutomobileMakeList = _context.AutomobileMakes.ToList(),
+                    AutomobileModelList = _context.AutomobileModels.ToList(),
+                    FileModel = images
+                };        
+         
+                return View(viewModel);
+
+        }
+
+        [AllowAnonymous]
+        public ActionResult Home(Automobile Automobile, int? year)
         {
-            var automobiles = _context.Automobiles.Include(c => c.Country).Include(c => c.AutomobileMake).Include(c => c.AutomobileModel).Include(c => c.Engine).ToList();
-            
+            var automobiles = _context.Automobiles.Where(c => c.StatusId == 1).Include(c => c.Country).Include(c => c.AutomobileMake).Include(c => c.AutomobileModel).Include(c => c.Engine).ToList();
+
             var images = _context.FileModels.ToList();
 
             if (Automobile.AutomobileMakeId != 0)
@@ -197,7 +235,7 @@ namespace AutoSeller.Controllers
                 automobiles = automobiles.Where(c => c.ReleaseDate.ToString().Contains(year.ToString())).ToList();
             }
 
-                var viewModel = new AutomobileFilterViewModel()
+            var viewModel = new AutomobileFilterViewModel()
             {
                 AutomobileList = automobiles,
                 Automobile = new Automobile(),
@@ -209,6 +247,7 @@ namespace AutoSeller.Controllers
             return View(viewModel);
         }
 
+        [AllowAnonymous]
         public ActionResult GetModel(String makeId)
         {
             var jsonSerialiser = new JavaScriptSerializer();
@@ -247,6 +286,7 @@ namespace AutoSeller.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult Edit(int id)
         {
             var automobile = _context.Automobiles.SingleOrDefault(c => c.Id == id);
@@ -287,6 +327,21 @@ namespace AutoSeller.Controllers
 
             return View("AutomobileForm", viewModel);
 
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var automobileInDb = _context.Automobiles.SingleOrDefault(c => c.Id == id);
+            //Status 2 is Deleted. If deleted => the automobile won't be visible in the list with automobiles.
+            automobileInDb.StatusId = 2;
+
+            if (automobileInDb == null)
+                return HttpNotFound();
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Automobiles");
         }
 
         public ActionResult Details(int id)

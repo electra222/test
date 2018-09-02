@@ -1,0 +1,60 @@
+﻿@model AutoSeller.ViewModel.HomeWelcomeFormViewModel
+@{
+    ViewBag.Title = "EditWelcomeForm";
+}
+
+<h2>Edit Welcome Form</h2>
+
+@using (Html.BeginForm("FileUpload", "Home", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.file, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.file, "", new { @type = "file", @multiple = "multiple" })
+                @Html.ValidationMessageFor(m => m.file, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 text-success">
+                @ViewBag.UploadStatus
+            </div>
+        </div>
+
+    </div>
+}
+
+@using (Html.BeginForm("EditWelcomeForm", "Home"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.DynamicText)
+        @Html.TextBoxFor(m => m.DynamicText, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DynamicText)
+    </div>
+    <div class="form-group">
+        @Html.AntiForgeryToken()
+        <p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+    </div>
+}
+
+
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

@@ -20,6 +20,7 @@ else
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Active</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,14 @@ else
             {
                 <tr>
                     <td>@Html.ActionLink(detail.Name, "Edit", "Details", new { id = detail.Id }, null)</td>
+                    @if (detail.Active)
+                    {
+                        <td>Yes</td>
+                    }
+                    else
+                    {
+                        <td>No</td>
+                    }
                 </tr>
             }
         </tbody>

@@ -23,7 +23,14 @@ else
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Name)
+        <div class="checkbox">
+            Active
+            <label>
+                @Html.CheckBoxFor(m => m.Active)
+            </label>
+        </div>
     </div>
+    <br />
 
     //here we will declare all hidden fields
     @Html.HiddenFor(m => m.Id)

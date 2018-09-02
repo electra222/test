@@ -231,3 +231,14 @@ D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.FileTableAdd
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.EngineTableCreate.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.EngineTableFillData.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AutomobileTableEdit.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.DetailActiveVariableAdd.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.DetailActiveVariableAddNotNullabe.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.DetailActiveVariableAddNotNullabe2.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusesTableCreate.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusesTableFill.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusesTableRename.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusesTableFill2.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusToAutomobileTable.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusToAutomobileTableNotNull.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.SeedUsers.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.SeedUsers2.resources

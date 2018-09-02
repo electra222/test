@@ -20,7 +20,7 @@
     @Html.DropDownListFor(m => m.Automobile.AutomobileModelId, Enumerable.Empty<SelectListItem>(), "Select Model", new { @id = "model_dropdown", @class = "form-control" })
     Year:
     @Html.TextBoxFor(m => Model.Year, new { @class = "form-control" })
-    <input type="submit" value="Search" />
+    <input type="submit" value="Search" class="btn btn-primary"/>
 </p>
 }
 
@@ -31,31 +31,39 @@
 else
 {
     // <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
-    <table class="table table-bordered table-hover">
+    <table id="automobiles" class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th></th>
                 <th>Countries</th>
                 <th>Makes</th>
                 <th>Models</th>
-                <th></th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var automobile in Model.AutomobileList)
             {
-                <tr>
-                    <td>
-                        @if (automobile.FileModels.Any())
-                        {
-                            <img src="@Url.Content(automobile.FileModels.First().ImagePath)" width="150" height="150" hspace="20" />
-                        }
-                    </td>
-                    <td>@automobile.Country.Name</td>
-                    <td>@automobile.AutomobileMake.Name</td>
-                    <td>@automobile.AutomobileModel.Name</td>
-                    <td>@Html.ActionLink("Edit", "Edit", "Automobiles", new { id = automobile.Id }, null)</td>
-                </tr>
+            <tr>
+                <td>
+                    @if (automobile.FileModels.Any())
+                    {
+                        <img src="@Url.Content(automobile.FileModels.First().ImagePath)" width="150" height="150" hspace="20" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/Content/Images/no_photo_available.png")" width="150" height="150" hspace="20" />
+                    }
+                </td>
+                <td>@automobile.Country.Name</td>
+                <td>@automobile.AutomobileMake.Name</td>
+                <td>@automobile.AutomobileModel.Name</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Automobiles", new { id = automobile.Id }, null)</td>
+                <td>
+                    <button data-automobile-id="@automobile.Id" class="btn-link js-delete">Delete</button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -65,6 +73,33 @@ else
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var automobileId = $("#automobiles .js-delete").attr("data-automobile-id");
+
+        $(document).ready(function () {
+
+            $("#automobiles .js-delete").on("click", function () {
+
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want to delete this automobile?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            type: 'POST',
+                            data: { id: automobileId },
+                            url: '@Url.Action("Delete","Automobiles")',
+                            success: function (result) {
+                                button.parents("tr").remove();
+                                console.log("The automobile was successfully deleted.");
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
 }
 
 <script type="text/javascript">

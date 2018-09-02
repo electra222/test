@@ -72,10 +72,13 @@ else
     {
         for (int i = 0; i < Model.Details.Count(); i++)
         {
-            <div class="form-group">
-                @Html.ValueFor(m => Model.Details[i].Name)
-                @Html.TextBoxFor(Model => Model.AutomobileDetails[i].DetailValue, new { @class = "form-control" })
-            </div>
+            if (Model.Details[i].Active)
+            {            
+                <div class="form-group">
+                    @Html.ValueFor(m => Model.Details[i].Name)
+                    @Html.TextBoxFor(Model => Model.AutomobileDetails[i].DetailValue, new { @class = "form-control" })
+                </div>
+            }
         }
     }
 

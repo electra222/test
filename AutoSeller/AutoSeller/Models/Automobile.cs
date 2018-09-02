@@ -49,5 +49,8 @@ namespace AutoSeller.Models
 
         public virtual ICollection<FileModel> FileModels { get; set; }
 
+        public Status Status { get; set; }
+        public int StatusId { get; set; }
+
     }
 }

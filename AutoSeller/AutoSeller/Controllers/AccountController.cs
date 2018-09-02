@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AutoSeller.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AutoSeller.Controllers
 {
@@ -145,7 +146,7 @@ namespace AutoSeller.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+       // [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -155,6 +156,14 @@ namespace AutoSeller.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                   //TempCode. When we register a user and this code is executed we get a user wirh role CanManageAutomobiles
+
+                   /* var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    await roleManager.CreateAsync(new IdentityRole("CanManageAutomobiles"));
+                    await UserManager.AddToRoleAsync(user.Id, "CanManageAutomobiles");*/
+
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -392,7 +401,7 @@ namespace AutoSeller.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Automobiles");
         }
 
         //
@@ -449,7 +458,7 @@ namespace AutoSeller.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Automobiles");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
