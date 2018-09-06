@@ -19,7 +19,6 @@ using System.IO;
 
 namespace AutoSeller.Controllers
 {
-    [AllowAnonymous]
     public class HomeController : Controller
     {
         private ApplicationDbContext _context;
@@ -84,9 +83,7 @@ namespace AutoSeller.Controllers
                 int count = size - index >= 4 ? 4 : (size - index); 
                 IEnumerable<Automobile> automobiles2 = automobiles.GetRange(index, count);
                 AutomobileLists.Add(automobiles2);
-                index = index + count;
-               
-                
+                index = index + count;                
             }
 
             var viewModel = new HomeFormViewModel()
@@ -99,7 +96,10 @@ namespace AutoSeller.Controllers
                 FileModel = images
             };
 
-            return View(viewModel);
+            if (User.IsInRole(RoleName.CanManageAutomobiles))
+                return View("IndexAdmin", viewModel);
+            else
+                return View("Index", viewModel);
         }
 
         [AllowAnonymous]
@@ -121,6 +121,7 @@ namespace AutoSeller.Controllers
             return Content(json, "application/json");
         }
 
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult EditWelcomeForm()
         {
             /*var text = AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText;
@@ -134,6 +135,7 @@ namespace AutoSeller.Controllers
 
         // this action saves the changes made over the welcome text
         [HttpPost]
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult EditWelcomeForm(string DynamicText)
         {
             if(DynamicText != null)

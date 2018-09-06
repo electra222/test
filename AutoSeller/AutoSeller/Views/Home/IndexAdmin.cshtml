@@ -1,0 +1,114 @@
+﻿@using AutoSeller.ViewModel
+@model HomeFormViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Index", "Home"))
+{
+    <div class="container row title-section">
+        <div class="col-sm-1">
+            <img src="@Url.Content(AutoSeller.ViewModel.HomeWelcomeFormViewModel.ImagePath)" width="80" height="80" hspace="20" />
+        </div>
+        <div class="col-sm-10 title-text">
+            <text style="color:midnightblue;font-family:cursive;font-size:200%;">@AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText</text>
+        </div>
+        <div class="col-sm-1">
+            @Html.ActionLink("Edit", "EditWelcomeForm", "Home", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm("Index", "Home"))
+{
+    <div class="row filter">
+        <div class="col-sm-3">
+            Make:
+            @Html.DropDownListFor(m => m.Automobile.AutomobileMakeId, new SelectList(Model.AutomobileMakeList.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @id = "make_id", @class = "form-control", @onchange = "ajax(this.value)" })
+        </div>
+        <div class="col-sm-3">
+            Model:
+            @Html.DropDownListFor(m => m.Automobile.AutomobileModelId, Enumerable.Empty<SelectListItem>(), "Select Model", new { @id = "model_dropdown", @class = "form-control" })
+        </div>
+        <div class="col-sm-3">
+            Year:
+            @Html.TextBoxFor(m => Model.Year, new { @class = "form-control" })
+        </div>
+        <div class="col-sm-3">
+            <input type="submit" value="Search" class="btn btn-primary submit-btn-filter" />
+        </div>
+    </div>
+}
+
+@if (!Model.AutomobileList.Any())
+{
+    <p style="color:red;">There aren't any found results.</p>
+}
+else
+{
+    // <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
+        foreach (var columnsAutomobiles in Model.AutomobileList)
+        {
+
+        <div class="row row-margin-bottom">
+            @Html.Partial("_ColumnsPartial", new ColumnsViewModel { Automobiles= columnsAutomobiles })
+        </div>
+    }
+
+}
+
+
+@section scripts
+{
+                    @Scripts.Render("~/bundles/jqueryval")
+                    @Styles.Render("~/Content/my-StyleSheet.css")
+
+                }
+
+
+                <script type="text/javascript">
+
+    var ajax = function () {
+        var makeId = $('#make_id').val();
+        $.ajax({
+            type: 'GET',
+            data: { makeId: makeId },
+            url: '@Url.Action("GetModel","Home")',
+            success: function (result) {
+                helpers.buildDropdown(
+                    result,
+                    $('#model_dropdown'),
+                    'Select Model'
+                );
+            },
+
+            error: function () {
+                $('#model_dropdown').html('');
+                $('#model_dropdown').append('<option value="">Select Model</option>');
+            }
+        })
+    }
+
+    var helpers =
+        {
+            buildDropdown: function (result, dropdown, emptyMessage) {
+                // Remove current options
+                dropdown.html('');
+                // Add the empty option with the empty message
+                dropdown.append('<option value="">' + emptyMessage + '</option>');
+                // Check result isnt empty
+                if (result != '') {
+                    // Loop through each of the results and append the option to the dropdown
+                    $.each(result, function (k, v) {
+                        dropdown.append('<option value="' + v.Id + '">' + v.Name + '</option>');
+                    });
+                }
+            }
+        }
+                </script>
+
+
