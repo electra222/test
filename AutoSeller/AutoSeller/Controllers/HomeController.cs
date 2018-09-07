@@ -103,6 +103,64 @@ namespace AutoSeller.Controllers
         }
 
         [AllowAnonymous]
+        public ActionResult ViewAutomobileDetails(int id)
+        {
+            var automobileInDB = _context.Automobiles.SingleOrDefault(c => c.Id == id);
+            if(automobileInDB.Counter != null)
+            {
+                automobileInDB.Counter = automobileInDB.Counter.Value + 1;
+            }
+            else
+            {
+                automobileInDB.Counter = 1;
+            }
+
+            _context.SaveChanges();
+
+
+            var automobiles = _context.Automobiles.Where(c => c.Id == id).Include(c => c.Country).Include(c => c.AutomobileMake).Include(c => c.AutomobileModel).Include(c => c.Engine);
+            var automobile = automobiles.SingleOrDefault(c => c.Id == id);
+            //increasing the counter/number of views of the current automobile
+
+            if (automobile == null)
+                return HttpNotFound();
+
+            IEnumerable<AutomobileDetail> automobileDetailsInDb = _context.AutomobileDetails.ToList().Where(c => c.AutomobileId == id);
+            var detailsInDb = _context.Details.ToList();
+            List<AutomobileDetail> automobileDetails = new List<AutomobileDetail>();
+
+            foreach (var automobileDetail in automobileDetailsInDb)
+            {
+                automobileDetails.Add(automobileDetail);
+            }
+
+            var images = _context.FileModels.Where(m => m.AutomobileId == id).ToList();
+
+            var viewModel = new RandomAutomobileViewModel()
+            {
+                Automobile = automobile,
+                FileModel = images,
+                Details = detailsInDb,              
+                AutomobileDetails = automobileDetails
+            };
+
+            if (detailsInDb.Count() > automobileDetailsInDb.Count())
+            {
+                int dif = detailsInDb.Count() - automobileDetailsInDb.Count();
+                int i = 1;
+
+                while (i <= dif)
+                {
+                    viewModel.AutomobileDetails.Add(new AutomobileDetail());
+                    i++;
+                }
+            }
+
+            return View("~/Views/Automobiles/ViewAutomobile.cshtml", viewModel);
+        }
+
+
+        [AllowAnonymous]
         public ActionResult GetModel(String makeId)
         {
             var jsonSerialiser = new JavaScriptSerializer();

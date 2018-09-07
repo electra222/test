@@ -242,3 +242,4 @@ D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusToAuto
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusToAutomobileTableNotNull.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.SeedUsers.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.SeedUsers2.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AutomobileCounter.resources

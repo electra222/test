@@ -431,6 +431,10 @@
     <Compile Include="Migrations\201808262312379_SeedUsers2.Designer.cs">
       <DependentUpon>201808262312379_SeedUsers2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809061331440_AutomobileCounter.cs" />
+    <Compile Include="Migrations\201809061331440_AutomobileCounter.Designer.cs">
+      <DependentUpon>201809061331440_AutomobileCounter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Automobile.cs" />
@@ -542,6 +546,7 @@
     <Content Include="Views\Home\EditWelcomeForm.cshtml" />
     <Content Include="Views\Home\_ColumnsPartial.cshtml" />
     <Content Include="Views\Home\IndexAdmin.cshtml" />
+    <Content Include="Views\Automobiles\ViewAutomobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -710,6 +715,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808262312379_SeedUsers2.resx">
       <DependentUpon>201808262312379_SeedUsers2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809061331440_AutomobileCounter.resx">
+      <DependentUpon>201809061331440_AutomobileCounter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

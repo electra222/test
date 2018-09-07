@@ -11,7 +11,7 @@
                 }
                 else
                 {
-                    <img src="@Url.Content("~/Content/Images/no_photo_available.png")" width="150" height="150"/>
+                    <img src="@Url.Content("~/Content/Images/no_photo_available.png")" width="150" height="150" />
                 }
             </div>
         </div>
@@ -30,6 +30,12 @@
                 <span class="bold">Model</span>: @automobile.AutomobileModel.Name
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12">
+                @Html.ActionLink("View", "ViewAutomobileDetails", "Home", new { id = automobile.Id }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+
     </div>
 
     i++;

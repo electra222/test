@@ -9,7 +9,9 @@ namespace AutoSeller.ViewModel
     public class RandomAutomobileViewModel
     {
         public Automobile Automobile { get; set; }
-        public List<Customer> Customers { get; set; }
+        public List<Detail> Details { get; set; }
+        public List<AutomobileDetail> AutomobileDetails { get; set; }
+        public IEnumerable<FileModel> FileModel { get; set; }
 
     }
 }

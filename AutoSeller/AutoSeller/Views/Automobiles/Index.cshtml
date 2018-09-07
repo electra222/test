@@ -38,6 +38,7 @@ else
                 <th>Countries</th>
                 <th>Makes</th>
                 <th>Models</th>
+                <th>Views</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -58,7 +59,8 @@ else
                 </td>
                 <td>@automobile.Country.Name</td>
                 <td>@automobile.AutomobileMake.Name</td>
-                <td>@automobile.AutomobileModel.Name</td>
+                <td>@automobile.AutomobileModel.Name</td>                
+                <td>@automobile.Counter.GetValueOrDefault()</td>
                 <td>@Html.ActionLink("Edit", "Edit", "Automobiles", new { id = automobile.Id }, null)</td>
                 <td>
                     <button data-automobile-id="@automobile.Id" class="btn-link js-delete">Delete</button>

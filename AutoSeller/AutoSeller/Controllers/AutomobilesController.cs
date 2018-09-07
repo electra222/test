@@ -267,25 +267,6 @@ namespace AutoSeller.Controllers
             return Content(json, "application/json");
         }
 
-        // GET: Automobiles/Random
-        public ActionResult Random()
-        {
-            var automobile = new Automobile() { Color = "Audi" };
-            var customers = new List<Customer>
-            {
-                new Customer {Name = "Customer 1" },
-                new Customer {Name = "Customer 2" }
-            };
-
-            var viewModel = new RandomAutomobileViewModel
-            {
-                Automobile = automobile,
-                Customers = customers
-
-            };
-
-            return View(viewModel);
-        }
 
         [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult Edit(int id)

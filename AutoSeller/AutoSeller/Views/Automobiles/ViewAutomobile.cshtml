@@ -1,0 +1,92 @@
+﻿@model AutoSeller.ViewModel.RandomAutomobileViewModel
+
+@{
+    ViewBag.Title = "ViewAutomobile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row-margin-bottom">
+    @if (Model.Automobile.FileModels.Any())
+    {
+        foreach (var file in Model.Automobile.FileModels)
+        {
+            <img  class="row-margin-top" src="@Url.Content(file.ImagePath)" width="150" height="150" hspace="20"  />
+        }
+    }
+    else
+    {
+        <img src="@Url.Content("~/Content/Images/no_photo_available.png")" width="150" height="150" hspace="20" class="row-margin-top" />
+    }
+</div>
+
+<div class="form-group">
+    <span class="bold">Make:</span>
+    @Html.DisplayFor(m => m.Automobile.AutomobileMake.Name)
+</div>
+<div class="form-group">
+    <span class="bold">Model:</span>
+    @Html.DisplayFor(m => m.Automobile.AutomobileModel.Name)
+</div>
+<div class="form-group">
+    <span class="bold">ReleaseDate:</span>
+    @Html.DisplayFor(m => m.Automobile.ReleaseDate)
+</div>
+<div class="form-group">
+    <span class="bold">Country:</span>
+    @Html.DisplayFor(m => m.Automobile.Country.Name)
+</div>
+<div class="form-group">
+    <span class="bold">Engine:</span>
+    @Html.DisplayFor(m => m.Automobile.Engine.Name)
+</div>
+<div class="form-group">
+    <span class="bold">Color:</span>
+    @Html.DisplayFor(m => m.Automobile.Color)
+</div>
+<div class="form-group">
+    <span class="bold">Doors:</span>
+    @Html.DisplayFor(m => m.Automobile.Doors)
+</div>
+<div class="form-group">
+    <span class="bold">Transmission:</span>
+    @Html.DisplayFor(m => m.Automobile.Transmission)
+</div>
+<div class="form-group">
+    <span class="bold">Miles:</span>
+    @Html.DisplayFor(m => m.Automobile.Miles)
+</div>
+
+@if (Model.Details.Any())
+{
+    for (int i = 0; i < Model.Details.Count(); i++)
+    {
+        if (Model.Details[i].Active)
+        {
+            <div class="form-group">
+                @Html.ValueFor(m => Model.Details[i].Name) :
+                @Html.DisplayFor(Model => Model.AutomobileDetails[i].DetailValue, new { @class = "form-control" })
+            </div>
+        }
+    }
+}
+
+
+@Html.HiddenFor(m => m.Automobile.Id)
+
+@for (int i = 0; i < Model.Details.Count(); i++)
+{
+    @Html.HiddenFor(m => m.AutomobileDetails[i].Id)
+    @Html.HiddenFor(m => m.AutomobileDetails[i].DetailId)
+    @Html.HiddenFor(m => m.AutomobileDetails[i].AutomobileId)
+    @Html.HiddenFor(m => m.AutomobileDetails[i].AutomobileId)
+}
+
+
+<p>
+    @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-primary" })
+</p>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

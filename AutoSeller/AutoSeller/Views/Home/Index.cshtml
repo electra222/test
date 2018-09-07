@@ -1,4 +1,5 @@
 ﻿@using AutoSeller.ViewModel
+@using System.Web.Mvc.Html
 @model HomeFormViewModel
 
 @{
@@ -47,12 +48,11 @@
 }
 else
 {
-    // <a class="btn btn-primary" href="http://localhost:1813/Automobiles/New" role="button">New Automobile</a>
-        foreach (var columnsAutomobiles in Model.AutomobileList)
-        {
+    foreach (var columnsAutomobiles in Model.AutomobileList)
+    {
 
         <div class="row row-margin-bottom">
-            @Html.Partial("_ColumnsPartial", new ColumnsViewModel { Automobiles= columnsAutomobiles })
+            @Html.Partial("_ColumnsPartial", new ColumnsViewModel { Automobiles = columnsAutomobiles })
         </div>
     }
 
@@ -61,10 +61,10 @@ else
 
 @section scripts
 {
-                    @Scripts.Render("~/bundles/jqueryval")
-                    @Styles.Render("~/Content/my-StyleSheet.css")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/my-StyleSheet.css")
 
-                }
+}
 
 
 <script type="text/javascript">
