@@ -15,9 +15,5 @@ namespace AutoSeller.Models
         public Automobile Automobile { get; set; }
         public int? AutomobileId { get; set; }
 
-     
-
-
-
     }
 }

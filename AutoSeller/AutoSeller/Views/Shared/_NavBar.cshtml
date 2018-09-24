@@ -12,7 +12,6 @@
             <ul class="nav navbar-nav">
                 @if (User.IsInRole("CanManageAutomobiles"))
                 {
-                    <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
                     <li>@Html.ActionLink("Manage Automobiles", "Index", "Automobiles")</li>
                     <li>@Html.ActionLink("Manage Details", "Index", "Details")</li>
                 }

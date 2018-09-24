@@ -12,7 +12,6 @@ namespace AutoSeller.Models
         public int? AutomobileId { get; set; }
         public Detail Detail { get; set; }
         public int? DetailId { get; set; }
- //       public bool Active { get; set; }
         public string DetailValue { get; set; }
     }
 }

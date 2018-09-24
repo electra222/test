@@ -13,7 +13,7 @@ namespace AutoSeller.ViewModel
     {
         public static string ImagePath = "~/Content/Images/Logo_TV_2015.png";
 
-        public static string WelcomeText = "Welcome!";
+        public static string WelcomeText;
 
         [Required]
         [Display(Name = "Welcome text:")]

@@ -243,3 +243,7 @@ D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusToAuto
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.SeedUsers.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.SeedUsers2.resources
 D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.AutomobileCounter.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.TruncateFileModels.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.UpdateRoleName.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.StatusAddWelcomeText.resources
+D:\repos\test\AutoSeller\AutoSeller\obj\Debug\AutoSeller.Migrations.ParametersTable.resources

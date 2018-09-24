@@ -435,8 +435,25 @@
     <Compile Include="Migrations\201809061331440_AutomobileCounter.Designer.cs">
       <DependentUpon>201809061331440_AutomobileCounter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809080719129_TruncateFileModels.cs" />
+    <Compile Include="Migrations\201809080719129_TruncateFileModels.Designer.cs">
+      <DependentUpon>201809080719129_TruncateFileModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809080726162_UpdateRoleName.cs" />
+    <Compile Include="Migrations\201809080726162_UpdateRoleName.Designer.cs">
+      <DependentUpon>201809080726162_UpdateRoleName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809232109485_StatusAddWelcomeText.cs" />
+    <Compile Include="Migrations\201809232109485_StatusAddWelcomeText.Designer.cs">
+      <DependentUpon>201809232109485_StatusAddWelcomeText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809232116185_ParametersTable.cs" />
+    <Compile Include="Migrations\201809232116185_ParametersTable.Designer.cs">
+      <DependentUpon>201809232116185_ParametersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetParameter.cs" />
     <Compile Include="Models\Automobile.cs" />
     <Compile Include="Models\AutomobileDetail.cs" />
     <Compile Include="Models\AutomobileMake.cs" />
@@ -454,6 +471,7 @@
     <Compile Include="Models\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\AboutViewForm.cs" />
     <Compile Include="ViewModel\AutomobileFilterViewModel.cs" />
     <Compile Include="ViewModel\AutomobileFormViewModel.cs" />
     <Compile Include="ViewModel\ColumnsViewModel.cs" />
@@ -534,7 +552,6 @@
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Automobiles\Index.cshtml" />
-    <Content Include="Views\Automobiles\Details.cshtml" />
     <Content Include="Views\Customers\CustomerForm.cshtml" />
     <Content Include="Views\Automobiles\AutomobileForm.cshtml" />
     <Content Include="Views\AutomobileDetails\Index.cshtml" />
@@ -547,6 +564,8 @@
     <Content Include="Views\Home\_ColumnsPartial.cshtml" />
     <Content Include="Views\Home\IndexAdmin.cshtml" />
     <Content Include="Views\Automobiles\ViewAutomobile.cshtml" />
+    <Content Include="Views\Home\AboutAdmin.cshtml" />
+    <Content Include="Views\Home\EditAbout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -718,6 +737,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809061331440_AutomobileCounter.resx">
       <DependentUpon>201809061331440_AutomobileCounter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809080719129_TruncateFileModels.resx">
+      <DependentUpon>201809080719129_TruncateFileModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809080726162_UpdateRoleName.resx">
+      <DependentUpon>201809080726162_UpdateRoleName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809232109485_StatusAddWelcomeText.resx">
+      <DependentUpon>201809232109485_StatusAddWelcomeText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809232116185_ParametersTable.resx">
+      <DependentUpon>201809232116185_ParametersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

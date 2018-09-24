@@ -401,7 +401,7 @@ namespace AutoSeller.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Home", "Automobiles");
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -458,7 +458,7 @@ namespace AutoSeller.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Home", "Automobiles");
+            return RedirectToAction("Index", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

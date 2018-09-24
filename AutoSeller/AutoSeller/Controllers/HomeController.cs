@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AutoSeller.ViewModel;
+using static AutoSeller.ViewModel.HomeWelcomeFormViewModel;
 // contains Include()
 using System.Data.Entity;
 using System.Web.Script.Serialization;
@@ -38,11 +39,15 @@ namespace AutoSeller.Controllers
             return View();
         }*/
 
+        [AllowAnonymous]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            AutoSeller.ViewModel.AboutViewForm.AboutText = _context.AspNetParameters.SingleOrDefault(c => c.Id == 2) != null ? _context.AspNetParameters.SingleOrDefault(c => c.Id == 2).Name : "About";
 
-            return View();
+            if (User.IsInRole(RoleName.CanManageAutomobiles))
+                return View("AboutAdmin");
+            else
+                return View("About");
         }
 
         public ActionResult Contact()
@@ -53,23 +58,25 @@ namespace AutoSeller.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Index(Automobile Automobile, int? year)
+        public ActionResult Index(int? MakeId, int? ModelId, int? year)
         {
             var automobiles = _context.Automobiles.Where(c => c.StatusId == 1).Include(c => c.Country).Include(c => c.AutomobileMake).Include(c => c.AutomobileModel).Include(c => c.Engine).ToList();
 
             var images = _context.FileModels.ToList();
+            List<AutomobileModel> modelByMake = new List<AutomobileModel>();
 
-            if (Automobile.AutomobileMakeId != 0)
+            if (MakeId != null)
             {
-                automobiles = automobiles.Where(c => c.AutomobileMakeId == Automobile.AutomobileMakeId).ToList();
+                automobiles = automobiles.Where(c => c.AutomobileMakeId == MakeId).ToList();
+                modelByMake = _context.AutomobileModels.Where(c => c.AutomobileMakeId == MakeId).ToList();
             }
 
-            if (Automobile.AutomobileModelId != 0)
+            if (ModelId != null)
             {
-                automobiles = automobiles.Where(c => c.AutomobileModelId == Automobile.AutomobileModelId).ToList();
+                automobiles = automobiles.Where(c => c.AutomobileModelId == ModelId).ToList();
             }
 
-            if (year != 0)
+            if (year != null)
             {
                 automobiles = automobiles.Where(c => c.ReleaseDate.ToString().Contains(year.ToString())).ToList();
             }
@@ -90,11 +97,14 @@ namespace AutoSeller.Controllers
             {
                 HomeWelcomeFormViewModel = new HomeWelcomeFormViewModel(),
                 AutomobileList = AutomobileLists,
-                Automobile = new Automobile(),
+                MakeId = MakeId,
+                ModelId = ModelId,
                 AutomobileMakeList = _context.AutomobileMakes.ToList(),
-                AutomobileModelList = _context.AutomobileModels.ToList(),
+                AutomobileModelList = modelByMake,
                 FileModel = images
             };
+
+            WelcomeText = _context.AspNetParameters.SingleOrDefault(c => c.Id == 1).Name;
 
             if (User.IsInRole(RoleName.CanManageAutomobiles))
                 return View("IndexAdmin", viewModel);
@@ -106,11 +116,11 @@ namespace AutoSeller.Controllers
         public ActionResult ViewAutomobileDetails(int id)
         {
             var automobileInDB = _context.Automobiles.SingleOrDefault(c => c.Id == id);
-            if(automobileInDB.Counter != null)
+            if(automobileInDB.Counter != null && User.IsInRole(RoleName.CanManageAutomobiles))
             {
                 automobileInDB.Counter = automobileInDB.Counter.Value + 1;
             }
-            else
+            else if (User.IsInRole(RoleName.CanManageAutomobiles))
             {
                 automobileInDB.Counter = 1;
             }
@@ -182,13 +192,23 @@ namespace AutoSeller.Controllers
         [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult EditWelcomeForm()
         {
-            /*var text = AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText;
+            var parameterInDb = _context.AspNetParameters.SingleOrDefault(c => c.Id == 1);
+            if(parameterInDb != null)
+            {
+                AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText = parameterInDb.Name;
+            }
+            else
+            {
+                AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText = "Welcome!";
+            }
+
+            var text = AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText;
             var welcomeForm = new HomeWelcomeFormViewModel
             {
                 DynamicText = text
-            };*/
+            };            
 
-            return View();
+            return View(welcomeForm);
         }
 
         // this action saves the changes made over the welcome text
@@ -197,7 +217,21 @@ namespace AutoSeller.Controllers
         public ActionResult EditWelcomeForm(string DynamicText)
         {
             if(DynamicText != null)
-            AutoSeller.ViewModel.HomeWelcomeFormViewModel.WelcomeText = DynamicText;
+            {
+                var parameterInDb = _context.AspNetParameters.SingleOrDefault(c => c.Id == 1);
+                if (parameterInDb == null)
+                {
+                    parameterInDb = new AspNetParameter();
+                    parameterInDb.Name = DynamicText;
+                    _context.AspNetParameters.Add(parameterInDb);
+                }
+                else
+                {
+                    parameterInDb.Name = DynamicText;
+                }
+                _context.SaveChanges();
+            }
+
 
             return RedirectToAction("Index");
         }
@@ -227,6 +261,52 @@ namespace AutoSeller.Controllers
             //redirect back to EditWelcome form so that to be able to edit the welcome text before closing the edit form
             return View("EditWelcomeForm");
 
+        }
+
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
+        public ActionResult EditAbout()
+        {
+            var parameterInDb = _context.AspNetParameters.SingleOrDefault(c => c.Id == 2);
+            if (parameterInDb != null)
+            {
+                AutoSeller.ViewModel.AboutViewForm.AboutText = parameterInDb.Name;
+            }
+            else
+            {
+                AutoSeller.ViewModel.AboutViewForm.AboutText = "No information!";
+            }
+
+            var text = AutoSeller.ViewModel.AboutViewForm.AboutText;
+            var aboutForm = new AboutViewForm
+            {
+                DynamicText = text
+            };
+
+            return View(aboutForm);
+        }
+
+        // this action saves the changes made over the about text
+        [HttpPost]
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
+        public ActionResult EditAbout(string DynamicText)
+        {
+            if (DynamicText != null)
+            {
+                var parameterInDb = _context.AspNetParameters.SingleOrDefault(c => c.Id == 2);
+                if (parameterInDb == null)
+                {
+                    parameterInDb = new AspNetParameter();
+                    parameterInDb.Name = DynamicText;
+                    _context.AspNetParameters.Add(parameterInDb);
+                }
+                else
+                {
+                    parameterInDb.Name = DynamicText;
+                }
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("About");
         }
     }
 }

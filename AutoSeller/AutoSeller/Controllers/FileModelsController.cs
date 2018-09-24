@@ -25,6 +25,7 @@ namespace AutoSeller.Controllers
         }
 
         // GET: FileModels
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult UploadFiles(ImagesFormViewModel imageModel)
         {
             return View(imageModel);

@@ -40,7 +40,7 @@ namespace AutoSeller.Models
 
         public string Color { get; set; }
 
-        [Range(1, 6)]
+        [Range(2, 6)]
         public byte Doors { get; set; }
 
         public string Transmission { get; set; }

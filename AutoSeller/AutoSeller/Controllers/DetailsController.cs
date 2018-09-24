@@ -30,6 +30,7 @@ namespace AutoSeller.Controllers
             return View(detail);
         }
 
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult New()
         {
             var detail = new Detail();
@@ -37,6 +38,7 @@ namespace AutoSeller.Controllers
             return View("DetailForm", detail);
         }
 
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult Edit(int id)
         {
             var detail = _context.Details.SingleOrDefault(c => c.Id == id);

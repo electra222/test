@@ -25,6 +25,7 @@ namespace AutoSeller.Controllers
         }
 
         // GET: AutomobileDetails
+        [Authorize(Roles = RoleName.CanManageAutomobiles)]
         public ActionResult Index()
         {
             var detail = _context.AutomobileDetails.Include(c => c.Automobile).Include(c => c.Detail).ToList();

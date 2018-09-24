@@ -26,11 +26,11 @@
     <div class="row filter">
         <div class="col-sm-3">
             Make:
-            @Html.DropDownListFor(m => m.Automobile.AutomobileMakeId, new SelectList(Model.AutomobileMakeList.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @id = "make_id", @class = "form-control", @onchange = "ajax(this.value)" })
+            @Html.DropDownListFor(m => m.MakeId, new SelectList(Model.AutomobileMakeList.OrderBy(m => m.Name), "Id", "Name"), "Select Make", new { @id = "make_id", @class = "form-control", @onchange = "ajax(this.value)" })
         </div>
         <div class="col-sm-3">
             Model:
-            @Html.DropDownListFor(m => m.Automobile.AutomobileModelId, Enumerable.Empty<SelectListItem>(), "Select Model", new { @id = "model_dropdown", @class = "form-control" })
+            @Html.DropDownListFor(m => m.ModelId, new SelectList(Model.AutomobileModelList.OrderBy(m => m.Name), "Id", "Name"), "Select Model", new { @id = "model_dropdown", @class = "form-control" })
         </div>
         <div class="col-sm-3">
             Year:
@@ -81,6 +81,7 @@ else
                     $('#model_dropdown'),
                     'Select Model'
                 );
+                selectModel();
             },
 
             error: function () {

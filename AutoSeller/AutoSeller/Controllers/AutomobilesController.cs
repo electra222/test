@@ -231,7 +231,7 @@ namespace AutoSeller.Controllers
                 automobiles = automobiles.Where(c => c.AutomobileModelId == Automobile.AutomobileModelId).ToList();
             }
 
-            if (year != 0)
+            if (year != null)
             {
                 automobiles = automobiles.Where(c => c.ReleaseDate.ToString().Contains(year.ToString())).ToList();
             }

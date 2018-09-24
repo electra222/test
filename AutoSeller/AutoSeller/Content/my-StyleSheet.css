@@ -16,7 +16,8 @@
 }
 
 .submit-btn-filter {
-    margin-top: 22px;
+    position: relative;
+    top: 22px;
 }
 
 .filter {
